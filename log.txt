@@ -1,0 +1,2 @@
+1. testing faster-whisper = installed faster-whisper, its req, ran the first example code
+	install torch gpu for some reasone

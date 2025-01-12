@@ -1,0 +1,8 @@
+git url : https://github.com/Ronin-117/Mock_Online_InterviewAi.git
+
+steps
+1. git init
+2. git add .
+3. git commit -am "comment"
+4.  git remote add mini_p https://github.com/Ronin-117/Mock_Online_InterviewAi.git
+5. git pull mini_p master
