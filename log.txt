@@ -4,3 +4,7 @@
 	faster-whisper is fast but some accuracy issues 
 	implemented some real time transcribing
 	made it use accumulative audio tracription to make good use of attention mechanism of whisper
+2. testing gemini 2.0 api
+	chat system seems to be better at the task
+	added different personas for the interviewer
+	added way to upload resume to get a deep contest on the user
