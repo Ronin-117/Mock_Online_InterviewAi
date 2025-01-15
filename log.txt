@@ -1,3 +1,6 @@
 1. testing faster-whisper = installed faster-whisper, its req, ran the first example code
 	install torch gpu for some reason - useless
 	solved OMP: Error by reinstalling numpy
+	faster-whisper is fast but some accuracy issues 
+	implemented some real time transcribing
+	made it use accumulative audio tracription to make good use of attention mechanism of whisper
