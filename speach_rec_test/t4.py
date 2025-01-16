@@ -1,4 +1,4 @@
-#implemented accumulation of audio data to transcribe
+# basic whisper real time transcription
 
 import sounddevice as sd
 import numpy as np

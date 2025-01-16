@@ -1,3 +1,5 @@
+#implemented accumulation of audio data to transcribe
+
 import sounddevice as sd
 import numpy as np
 from faster_whisper import WhisperModel
