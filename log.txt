@@ -8,3 +8,4 @@
 	chat system seems to be better at the task
 	added different personas for the interviewer
 	added way to upload resume to get a deep contest on the user
+3. filler transcribing is done using gemini api with audio input
