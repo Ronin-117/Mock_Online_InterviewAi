@@ -1,0 +1,11 @@
+assemblyai==0.36.0
+faster_whisper==1.1.1
+numpy==2.2.1
+protobuf==4.25.3
+pydub==0.25.1
+PyPDF2==3.0.1
+python_docx==1.1.2
+scipy==1.15.1
+sounddevice==0.5.1
+SpeechRecognition==3.14.0
+torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu124
