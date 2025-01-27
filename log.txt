@@ -6,7 +6,7 @@
 	made it use accumulative audio tracription to make good use of attention mechanism of whisper
 	made it checks the last part of transcript to avoid duplication in final transcript
 	used gemini for clean transcript
-	found a git with better live transcript
+	found a git with better live transcript https://github.com/mldljyh/whisper_real_time_translation
 2. testing gemini 2.0 api
 	chat system seems to be better at the task
 	added different personas for the interviewer
