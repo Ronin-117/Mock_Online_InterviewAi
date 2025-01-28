@@ -143,7 +143,7 @@ def start_listening():
                     counter=0
                 else:
                     counter+=1
-                if counter > 30000 and transcription != transcription_init:
+                if counter > 70000 and transcription != transcription_init:
                     print("stoping aftre some time")
                     break
                 if keyboard.is_pressed('esc'):
@@ -153,5 +153,3 @@ def start_listening():
                 break
     return transcription
 
-tc=start_listening()
-print(tc)

@@ -1,28 +1,10 @@
 #basic gemini chatbot
 from google import genai
 from google.genai import types
-from get_resume import get_resume
 
 client = genai.Client(api_key='AIzaSyAU6gNgL4-8DIBy2pybFo-tluRHOQErmh4')
 
 MODEL_ID = "gemini-2.0-flash-exp" # @param ["gemini-1.5-flash-8b","gemini-1.5-flash-002","gemini-1.5-pro-002","gemini-2.0-flash-exp"] {"allow-input":true}
-
-job="software engineer"
-resume_path = r"C:\Users\njne2\Desktop\Neil Joseph.pdf"  # Replace with your file path
-
-resume=get_resume(resume_path)
-
-system_instruction=f"""
-  you can act like a interviewer and ask questions to me ,
-  also dont ask too big of a question. max 100 words,
-  after maybe 5-10 questions you can conclude the interview,
-  dont use the markdown format , only the simple text format,
-  dont ask too technical questions, ask questions that are general and can be answered by anyone beacuse the goal is to test communication skills,
-  dont ask too many questions at once, ask one question at a time,
-  dont use any special characters in the question that may confuse a text to speach model,
-  you are a interviewer and you are interviewing me for a job for a role as a {job},
-  for context you can use the content of my resume: {resume},
-"""
 
 Challenging_interviewer = """
   Assess the candidate by subtly being harsh.
@@ -102,17 +84,31 @@ Team_Member_interviewer = """
   Offer a friendly, peer-perspective.
 """
 
-chat = client.chats.create(
-    model=MODEL_ID,
-    config=types.GenerateContentConfig(
-        system_instruction=system_instruction+Challenging_interviewer,
-        temperature=0.5,
-    ),
-)
+def get_chat(resume,job,interviewer_type):
+    system_instruction=f"""
+    you can act like a interviewer and ask questions to me ,
+    also dont ask too big of a question. max 100 words,
+    after maybe 5-10 questions you can conclude the interview,
+    dont use the markdown format , only the simple text format,
+    dont ask too technical questions, ask questions that are general and can be answered by anyone beacuse the goal is to test communication skills,
+    dont ask too many questions at once, ask one question at a time,
+    dont use any special characters in the question that may confuse a text to speach model,
+    you are a interviewer and you are interviewing me for a job for a role as a {job},
+    for context you can use the content of my resume: {resume},
+    """
+
+    chat = client.chats.create(
+        model=MODEL_ID,
+        config=types.GenerateContentConfig(
+            system_instruction=system_instruction+globals()[interviewer_type],
+            temperature=0.5,
+        ),
+    )
+    return chat
 
 
 
-def chat_with_model(prompt,job,resume_path):
+def chat_with_model(prompt,chat):
     response = chat.send_message(prompt)
     return response.text
 
