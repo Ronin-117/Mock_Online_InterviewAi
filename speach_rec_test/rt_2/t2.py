@@ -58,6 +58,8 @@ recorder = sr.Recognizer()
 recorder.energy_threshold = 1000
 # Definitely do this, dynamic energy compensation lowers the energy threshold dramtically to a point where the SpeechRecognizer never stops recording.
 recorder.dynamic_energy_threshold = False
+recorder.pause_threshold = 0.8
+recorder.non_speaking_duration = 0.5
 
 source = sr.Microphone(sample_rate=16000)
 
@@ -69,6 +71,7 @@ phrase_timeout = float(3)
 
 temp_file = NamedTemporaryFile().name 
 transcription = ['']
+transcription_init = ['']
 transcription_cpy= ['']
 counter=0
 transcription_changed = False
@@ -138,10 +141,9 @@ while True:
                 counter=0
             else:
                  counter+=1
-            if counter > 90000:
-                print("No new data")
-                counter=0
-            #print(transcription)
+            if counter > 90000 and transcription != transcription_init:
+                print("stoping aftre some time")
+                break
             if keyboard.is_pressed('esc'):
                     print("Exiting...")
                     break

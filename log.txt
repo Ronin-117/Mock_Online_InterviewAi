@@ -12,3 +12,6 @@
 	added different personas for the interviewer
 	added way to upload resume to get a deep contest on the user
 3. filler transcribing is done using gemini api with audio input
+
+conda activate mini_project
+python ./speach_rec_test/rt_2/t2.py
