@@ -1,7 +1,9 @@
 import torch
 from TTS.api import TTS
-from playsound import playsound
+from pydub import AudioSegment
+from pydub.playback import play
 import time
+import os
 
 
 # Get device
@@ -20,8 +22,13 @@ tts = TTS("tts_models/multilingual/multi-dataset/xtts_v2").to(device)
 # Text to speech to a file
 def talk(text):
     tts.tts_to_file(text=text, speaker_wav="girl-ix27ve-never-been-out-of-the-village-before-229855.wav", language="en", file_path="output.wav")
-    time.sleep(0.2)
-    playsound("output.wav")
+    output_path = "output.wav"
+    if os.path.exists(output_path):
+        audio = AudioSegment.from_wav(output_path)
+        play(audio)
+    else:
+        print(f"Error: The file {output_path} was not created.")
+
 
 if __name__ == "__main__":
     while True:
