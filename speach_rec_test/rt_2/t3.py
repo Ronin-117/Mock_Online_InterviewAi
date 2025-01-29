@@ -70,11 +70,7 @@ record_timeout = float(2)
 phrase_timeout = float(3)
 
 temp_file = NamedTemporaryFile().name 
-transcription = ['']
-transcription_init = ['']
-transcription_cpy= ['']
-counter=0
-transcription_changed = False
+
     
 with source:
     recorder.adjust_for_ambient_noise(source)
@@ -92,7 +88,12 @@ recorder.listen_in_background(source, record_callback, phrase_time_limit=record_
 print("Model loaded.\n")
 
 def start_listening():
-    global phrase_time, last_sample, transcription,transcription_init, transcription_cpy,transcription_changed, counter
+    transcription = ['']
+    transcription_init = ['']
+    transcription_cpy= ['']
+    counter=0
+    transcription_changed = False
+    global phrase_time, last_sample
     while True:
             try:
                 now = datetime.now(timezone.utc)
