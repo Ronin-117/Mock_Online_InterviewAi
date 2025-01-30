@@ -26,6 +26,7 @@ def talk(text):
     if os.path.exists(output_path):
         audio = AudioSegment.from_wav(output_path)
         play(audio)
+        print("Audio finished playing.")
     else:
         print(f"Error: The file {output_path} was not created.")
 
