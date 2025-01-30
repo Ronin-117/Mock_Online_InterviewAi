@@ -1,6 +1,7 @@
 from speach_rec_test.rt_2.t3 import start_listening
 from gem_test.get_resume import get_resume
 from gem_test.t2 import chat_with_model,get_chat
+from tts_test.t1 import talk
 
 
 #init gemini code
@@ -15,4 +16,5 @@ for i in range(3):
     for line in trans:
         transcript+=line
     resp=chat_with_model(transcript,chat)
+    talk(resp)
     print(resp)

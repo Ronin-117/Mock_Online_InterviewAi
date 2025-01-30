@@ -21,8 +21,8 @@ tts = TTS("tts_models/multilingual/multi-dataset/xtts_v2").to(device)
 #wav = tts.tts(text="Hello world!", speaker_wav="girl-ix27ve-never-been-out-of-the-village-before-229855.wav", language="en")
 # Text to speech to a file
 def talk(text):
-    tts.tts_to_file(text=text, speaker_wav="girl-ix27ve-never-been-out-of-the-village-before-229855.wav", language="en", file_path="output.wav")
-    output_path = "output.wav"
+    tts.tts_to_file(text=text, speaker_wav=r"C:\Users\njne2\Desktop\Cuda_PWR\CREATIVE\Mini_project\tts_test\MorganFreeMan.wav", language="en", file_path=r"C:\Users\njne2\Desktop\Cuda_PWR\CREATIVE\Mini_project\tts_test\output.wav")
+    output_path = r"C:\Users\njne2\Desktop\Cuda_PWR\CREATIVE\Mini_project\tts_test\output.wav"
     if os.path.exists(output_path):
         audio = AudioSegment.from_wav(output_path)
         play(audio)
