@@ -71,9 +71,7 @@ phrase_timeout = float(3)
 
 temp_file = NamedTemporaryFile().name 
 
-    
-with source:
-    recorder.adjust_for_ambient_noise(source)
+
 
 def record_callback(_, audio:sr.AudioData) -> None:
         """
@@ -84,7 +82,7 @@ def record_callback(_, audio:sr.AudioData) -> None:
         data = audio.get_raw_data()
         data_queue.put(data)
 
-recorder.listen_in_background(source, record_callback, phrase_time_limit=record_timeout)
+#recorder.listen_in_background(source, record_callback, phrase_time_limit=record_timeout)
 print("Model loaded.\n")
 
 def start_listening():
@@ -94,6 +92,9 @@ def start_listening():
     counter=0
     transcription_changed = False
     global phrase_time, last_sample
+    with source:
+        recorder.adjust_for_ambient_noise(source)
+    stop_listening = recorder.listen_in_background(source, record_callback, phrase_time_limit=record_timeout)
     while True:
             try:
                 now = datetime.now(timezone.utc)
@@ -152,5 +153,8 @@ def start_listening():
                         break
             except KeyboardInterrupt:
                 break
+    stop_listening()
     return transcription
 
+if __name__ == "__main__":
+    start_listening()

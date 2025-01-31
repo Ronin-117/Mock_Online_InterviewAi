@@ -154,3 +154,5 @@ def start_listening():
                 break
     return transcription
 
+if __name__ == "__main__":
+    start_listening()
