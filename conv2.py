@@ -5,11 +5,12 @@ from tts_test.tortoise_tts.tortoise.read_fast4 import generate_and_stream_audio_
 
 
 #init gemini code
-resume_path = r"C:\Users\njne2\Desktop\Neil Joseph.pdf" 
+resume_path = r"C:\Users\njne2\Desktop\resume\Neil Joseph.pdf"
 job="software engineer"
 resume=get_resume(resume_path)
 chat=get_chat(resume,job,"Challenging_interviewer")
 
+generate_and_stream_audio_from_text("Good morning lets get in to it with any delay.what is you name again??",)
 print("Start talking")
 for i in range(3):
     transcript=""
