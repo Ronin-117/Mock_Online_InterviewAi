@@ -87,7 +87,7 @@ Team_Member_interviewer = """
 def get_chat(resume,job,interviewer_type):
     system_instruction=f"""
     you can act like a interviewer and ask questions to me ,
-    also dont ask too big of a question. max 100 words,
+    also dont ask too big of a question. max 50-75 words,
     after maybe 5-10 questions you can conclude the interview,
     dont use the markdown format , only the simple text format,
     dont ask too technical questions, ask questions that are general and can be answered by anyone beacuse the goal is to test communication skills,
