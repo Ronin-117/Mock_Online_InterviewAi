@@ -1,7 +1,8 @@
-from speach_rec_test.rt_2.t4 import start_listening
+#from speach_rec_test.rt_2.t4 import start_listening
 from gem_test.get_resume import get_resume
 from gem_test.t2 import chat_with_model, get_chat, stream_chat
 from tts_test.t4 import gtts_tts_and_play as generate_and_stream_audio_from_text
+from speach_rec_test.rt_3.t1 import set_ear,Hear
 import time
 
 
@@ -10,13 +11,16 @@ resume_path = r"C:\Users\njne2\Desktop\resume\Neil Joseph.pdf"
 job="software engineer"
 resume=get_resume(resume_path)
 chat=get_chat(resume,job,"Challenging_interviewer")
+response=set_ear()
 
-generate_and_stream_audio_from_text("Good morning lets get in to it with any delay.what is you name again??",)
-print("Start talking")
+generate_and_stream_audio_from_text("Good morning lets get in to it without any delay.",)
+
 for i in range(3):
+    print("Start talking")
     transcript=""
     tick=time.time()
-    trans=start_listening()
+    #trans=start_listening()
+    trans= Hear(response)
     for line in trans:
         transcript+=line
     tock=time.time()
