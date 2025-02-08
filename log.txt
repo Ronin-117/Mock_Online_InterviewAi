@@ -14,6 +14,7 @@
 3. filler transcribing is done using gemini api with audio input
 4. using XTTS for the tts from the git git clone https://github.com/coqui-ai/TTS
 	using different tts due to delay - https://github.com/neonbjb/tortoise-tts
+5. run deepseek =>  ollama run deepseek-r1:8b
 
 conda activate mini_project
 python ./speach_rec_test/rt_2/t2.py
