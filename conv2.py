@@ -1,7 +1,7 @@
 from speach_rec_test.rt_2.t4 import start_listening
 from gem_test.get_resume import get_resume
-from gem_test.t2 import chat_with_model,get_chat
-from tts_test.tortoise_tts.tortoise.read_fast4 import generate_and_stream_audio_from_text
+from gem_test.t2 import chat_with_model, get_chat, stream_chat
+from tts_test.t4 import gtts_tts_and_play as generate_and_stream_audio_from_text
 import time
 
 
@@ -21,12 +21,14 @@ for i in range(3):
         transcript+=line
     tock=time.time()
     print("whisper",tock-tick)
+    
+    # Stream Gemini output and TTS each token as it arrives.
     tick=time.time()
-    resp=chat_with_model(transcript,chat)
+    response_text = ""
+    for token in stream_chat(transcript, chat):
+        response_text += token
+        generate_and_stream_audio_from_text(token)
     tock=time.time()
-    print("gem",tock-tick)
-    tick=time.time()
-    op_dir=generate_and_stream_audio_from_text(resp)
-    print(resp)
-    tock=time.time()
-    print("tts",tock-tick)
+    print("gem streaming & tts", tock-tick)
+    
+    print(response_text)

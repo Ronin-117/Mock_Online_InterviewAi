@@ -112,6 +112,14 @@ def chat_with_model(prompt,chat):
     response = chat.send_message(prompt)
     return response.text
 
+def stream_chat(prompt,chat):
+    response = chat.send_message_stream(
+        model="gemini-2.0-flash",
+        contents=[prompt]
+    )
+    for chunk in response:
+        yield chunk.text
+
 if __name__ == "__main__":
   while True:
       prompt=str(input("Enter the prompt: "))

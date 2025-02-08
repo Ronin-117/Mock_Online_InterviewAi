@@ -90,8 +90,9 @@ def generate_audio(text, voice, output_path, output_name, preset='standard', mod
                if audio_chunk is None: #if the value is None, this means that this part of the text is complete
                    break
                try:
-                    audio_segment = AudioSegment(audio_chunk.tobytes(), frame_rate=24000, sample_width=audio_chunk.dtype.itemsize, channels=1)
-                    play(audio_segment)
+                    # Replace pydub playback with sounddevice to reduce overhead latency.
+                    sd.play(audio_chunk, samplerate=24000)
+                    sd.wait()
                except Exception as e:
                     print(f"An exception occurred while playing audio: {e}")
                     break
