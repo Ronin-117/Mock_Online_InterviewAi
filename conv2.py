@@ -15,14 +15,15 @@ response=set_ear()
 
 generate_and_stream_audio_from_text("Good morning lets get in to it without any delay.",)
 
-for i in range(3):
+while True:
     print("Start talking")
     transcript=""
     tick=time.time()
     #trans=start_listening()
     trans= Hear(response)
-    for line in trans:
-        transcript+=line
+    if trans:
+        for line in trans:
+            transcript+=line
     tock=time.time()
     print("whisper",tock-tick)
     
@@ -34,5 +35,8 @@ for i in range(3):
         generate_and_stream_audio_from_text(token)
     tock=time.time()
     print("gem streaming & tts", tock-tick)
+    if "[[END]]" in response_text:
+        print("End of interview")
+        break
     
     print(response_text)
