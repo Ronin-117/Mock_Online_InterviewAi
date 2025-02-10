@@ -14,23 +14,26 @@ def set_ear():
 
 def Hear(source):
     print("listening...")
-    with sr.Microphone() as source:
-        audio = r.listen(source)
-    # recognize speech using faster-whisper
-        try:
-            tick = time.time()
-            text=r.recognize_faster_whisper(audio, language="en")
-            #text=r.recognize_google(audio)
-            tock = time.time()
-            print("faster-Whisper thinks you said " + text, "\n in", tock - tick, "seconds")
-            if text:
-                return text
-            else:
-                Hear(source)
-        except sr.UnknownValueError:
-            print("faster-Whisper could not understand audio")
-        except sr.RequestError as e:
-            print(f"Could not request results from faster-Whisper; {e}")
+    try:
+        with sr.Microphone() as source:
+            audio = r.listen(source)
+        # recognize speech using faster-whisper
+            try:
+                tick = time.time()
+                text=r.recognize_faster_whisper(audio, language="en")
+                #text=r.recognize_google(audio)
+                tock = time.time()
+                print("faster-Whisper thinks you said :: " + text, "\n in", tock - tick, "seconds")
+                if text:
+                    return text
+                else:
+                    Hear(source)
+            except sr.UnknownValueError:
+                print("faster-Whisper could not understand audio")
+            except sr.RequestError as e:
+                print(f"Could not request results from faster-Whisper; {e}")
+    except Exception as e:
+        print(f"Error getting audio: {e}")
 
 if __name__ == "__main__":
     source = set_ear()
