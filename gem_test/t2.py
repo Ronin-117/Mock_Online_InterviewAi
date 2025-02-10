@@ -6,8 +6,6 @@ client = genai.Client(api_key='AIzaSyAU6gNgL4-8DIBy2pybFo-tluRHOQErmh4')
 
 MODEL_ID = "gemini-2.0-flash-exp" # @param ["gemini-1.5-flash-8b","gemini-1.5-flash-002","gemini-1.5-pro-002","gemini-2.0-flash-exp"] {"allow-input":true}
 
-no_question = 2
-
 Challenging_interviewer = """
   Assess the candidate by subtly being harsh.
   Don't be obviously harsh.
@@ -87,11 +85,11 @@ Team_Member_interviewer = """
 """
 
 def get_chat(resume,job,interviewer_type):
-    global no_question
     system_instruction=f"""
     you can act like a interviewer and ask questions to me ,
     also dont ask too big of a question. max 50-75 words,
-    after maybe {no_question} questions ,after you can conclude the interview,when concluding the interview print [[END]] to indicate the end,
+    dont use any asterisks or quotes in the question nor in the answer,
+    after maybe 5-10 questions you can conclude the interview,
     dont use the markdown format , only the simple text format,
     dont ask too technical questions, ask questions that are general and can be answered by anyone beacuse the goal is to test communication skills,
     dont ask too many questions at once, ask one question at a time,
@@ -119,6 +117,24 @@ def stream_chat(prompt,chat):
     response = chat.send_message_stream(prompt)
     for chunk in response:
         yield chunk.text
+
+def stream_complete_sentences(prompt, chat):
+    buffered_text = ""
+    for chunk in chat.send_message_stream(prompt):
+        buffered_text += chunk.text
+        # Find the position of the last sentence punctuation
+        last_period = buffered_text.rfind('.')
+        last_qmark = buffered_text.rfind('?')
+        last_exmark = buffered_text.rfind('!')
+        last_punct = max(last_period, last_qmark, last_exmark)
+        # If a punctuation mark is found, yield the complete sentence and keep the remainder.
+        if last_punct != -1:
+            complete = buffered_text[:last_punct + 1]
+            buffered_text = buffered_text[last_punct + 1:]
+            yield complete.strip()
+    # Yield any remaining text once the stream finishes
+    if buffered_text.strip():
+        yield buffered_text.strip()
 
 if __name__ == "__main__":
   while True:
