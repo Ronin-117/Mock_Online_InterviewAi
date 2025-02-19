@@ -7,158 +7,194 @@ text,label
 "The time is now",incomplete
 "Could you please clarify your request?",complete
 "Clarify",incomplete
-"Order a pizza with pepperoni and mushrooms.",complete
+"Order a pizza with pepperoni and mushrooms, please.",complete
 "Pepperoni and",incomplete
-"What is the capital of France?",complete
+"What is the capital of France, do you know?",complete
 "Capital of",incomplete
-"The patient has a fever and a cough.",complete
+"The patient has a fever and a cough that won't stop.",complete
 "Patient fever",incomplete
-"What is the solution to this?",complete
+"What is the solution to this complicated problem?",complete
 "The",incomplete
-"He went to the store.",complete
+"He went to the store to buy milk and bread.",complete
 "He",incomplete
-"She is reading a book about history.",complete
+"She is reading a book about the history of Rome.",complete
 "Reading about",incomplete
-"They are playing basketball in the park.",complete
+"They are playing basketball in the park after school.",complete
 "Park",incomplete
-"We need to finish this project by tomorrow.",complete
+"We need to finish this project by tomorrow, or else we're doomed.",complete
 "Project tomorrow",incomplete
-"The dog barked loudly at the mailman.",complete
+"The dog barked loudly at the mailman, scaring him away.",complete
 "Dog barked",incomplete
-"The rain is falling heavily outside.",complete
+"The rain is falling heavily outside, making it hard to see.",complete
 "Falling heavily",incomplete
-"I am very grateful for your help.",complete
+"I am very grateful for your help, I appreciate it a lot.",complete
 "Grateful",incomplete
-"The sky is blue and clear today.",complete
+"The sky is blue and clear today, it's a perfect day for a walk.",complete
 "Sky blue",incomplete
-"The birds are singing sweetly in the trees.",complete
+"The birds are singing sweetly in the trees, chirping merrily.",complete
 "Birds",incomplete
-"Please send me the report as soon as possible.",complete
+"Please send me the report as soon as possible, thanks.",complete
 "The report",incomplete
-"The meeting will start at 10:00 AM.",complete
+"The meeting will start at 10:00 AM sharp, so don't be late.",complete
 "Meeting",incomplete
-"The train is arriving on platform 5.",complete
+"The train is arriving on platform 5, please stand back.",complete
 "Train Platform",incomplete
-"Thank you for your time and consideration.",complete
+"Thank you for your time and consideration, have a nice day.",complete
 "Consideration",incomplete
-"I hope you have a wonderful day.",complete
+"I hope you have a wonderful day; it's going to be a good one.",complete
 "Hope",incomplete
-"This is a test sentence.",complete
+"This is a test sentence to see if it is complete or not.",complete
 "Test",incomplete
-"Is there anything else I can help you with?",complete
+"Is there anything else I can help you with, or are you all set?",complete
 "Anything",incomplete
-"I want to buy a new car.",complete
+"I want to buy a new car, but I haven't decided which one yet.",complete
 "New car",incomplete
-"Can you please tell me more about it?",complete
+"Can you please tell me more about it, if you have time?",complete
 "More",incomplete
-"That sounds like a great idea.",complete
+"That sounds like a great idea, I am excited.",complete
 "Great",incomplete
-"I will get back to you soon.",complete
+"I will get back to you soon, don't worry.",complete
 "Back",incomplete
-"Let me know if you need anything.",complete
+"Let me know if you need anything, I will always try.",complete
 "Need",incomplete
-"It is very important to be on time.",complete
+"It is very important to be on time for the appointment.",complete
 "Important",incomplete
-"Please be quiet during the presentation.",complete
+"Please be quiet during the presentation, its very important.",complete
 "Presentation",incomplete
-"The internet is down in the office.",complete
+"The internet is down in the office; no one can work.",complete
 "Internet",incomplete
-"She likes to dance and sing.",complete
+"She likes to dance and sing, as it makes her feel free.",complete
 "Dance",incomplete
-"He is a very talented musician.",complete
+"He is a very talented musician, he plays the piano well.",complete
 "Musician",incomplete
-"They are planning a trip to Europe.",complete
+"They are planning a trip to Europe; it will be fun.",complete
 "Trip",incomplete
-"We are having a party this weekend.",complete
+"We are having a party this weekend, it is going to be great.",complete
 "Party",incomplete
-"The cat is sleeping on the windowsill.",complete
+"The cat is sleeping on the windowsill, dreaming.",complete
 "Cat sleeping",incomplete
-"The coffee is hot and strong.",complete
+"The coffee is hot and strong, just the way I like it.",complete
 "Coffee",incomplete
-"I need to buy groceries for dinner.",complete
+"I need to buy groceries for dinner; I am hungry.",complete
 "Groceries",incomplete
-"The flowers are blooming in the garden.",complete
+"The flowers are blooming in the garden, the colors are pretty.",complete
 "Flowers",incomplete
-"The children are playing in the yard.",complete
+"The children are playing in the yard, having fun.",complete
 "Children",incomplete
-"I am looking forward to the vacation.",complete
+"I am looking forward to the vacation, so I can relax.",complete
 "Vacation",incomplete
-"The movie was very entertaining.",complete
+"The movie was very entertaining, I would definitely recommend it.",complete
 "Entertaining",incomplete
-"The music is loud and energetic.",complete
+"The music is loud and energetic, perfect for dancing.",complete
 "Music",incomplete
-"She is wearing a beautiful dress.",complete
+"She is wearing a beautiful dress, very elegant.",complete
 "Dress",incomplete
-"He is reading a newspaper in the park.",complete
+"He is reading a newspaper in the park, enjoying the sun.",complete
 "Newspaper",incomplete
-"They are building a new house.",complete
+"They are building a new house, its very big.",complete
 "House",incomplete
-"We are watching a football game.",complete
+"We are watching a football game, hoping our team wins.",complete
 "Football",incomplete
-"The sun is setting over the ocean.",complete
+"The sun is setting over the ocean; it's a beautiful sight.",complete
 "Ocean",incomplete
-"I am listening to my favorite song.",complete
+"I am listening to my favorite song, dancing.",complete
 "Song",incomplete
-"The birds are flying south for the winter.",complete
+"The birds are flying south for the winter months.",complete
 "Flying",incomplete
-"Please close the door when you leave.",complete
+"Please close the door before you leave the home",complete
 "Please",incomplete
-"The car needs to be washed this weekend.",complete
+"The car needs to be washed, but who has time?",complete
 "Car wash",incomplete
-"I am going to the gym later today.",complete
+"I am going to the gym later today and also after that we will eat.",complete
 "Gym",incomplete
-"The sky is filled with stars tonight.",complete
+"The sky is filled with stars; it's beautiful night.",complete
 "Stars",incomplete
-"She likes to cook and bake.",complete
+"She likes to cook and bake and also draw",complete
 "Cook",incomplete
-"He is writing a novel in his spare time.",complete
+"He is writing a novel; in his spare time.",complete
 "Novel",incomplete
-"They are visiting their family for the holidays.",complete
+"They are visiting their family; on the holidays.",complete
 "Family",incomplete
-"We are planning a surprise party for him.",complete
+"We are planning a surprise; for him.",complete
 "Surprise",incomplete
-"The cat is purring softly on my lap.",complete
+"The cat is purring; soft sounds",complete
 "Purring",incomplete
-"The tea is warm and comforting.",complete
+"The tea is good; tastes warm",complete
 "Tea",incomplete
-"I need to pay the bills before they are due.",complete
+"I need to pay what again; no",incomplete
 "Bills",incomplete
-"The leaves are changing color in the fall.",complete
+"The leaves are falling; fall.",incomplete
 "Leaves",incomplete
-"The children are studying for their exams.",complete
+"The children test; school",incomplete
 "Exams",incomplete
-"I am excited about the concert tonight.",complete
-"Concert",incomplete
-"The movie was very thought-provoking.",complete
-"Thought",incomplete
-"The painting is beautiful and inspiring.",complete
-"Painting",incomplete
-"She is learning to play the guitar.",complete
-"Guitar",incomplete
-"He is training for a marathon.",complete
-"Marathon",incomplete
-"They are volunteering at the local soup kitchen.",complete
-"Soup kitchen",incomplete
-"We are organizing a charity event.",complete
-"Charity",incomplete
-"The cat is chasing a mouse in the garden.",complete
-"Chasing",incomplete
-"The soup is hearty and delicious.",complete
-"Soup",incomplete
-"I need to call the doctor to make an appointment.",complete
-"Doctor",incomplete
-"The snow is falling softly on the ground.",complete
-"Snow",incomplete
-"The solution is simple and easy to follow.",complete
-"Simple",incomplete
-"You will need a computer with internet access.",complete
-"Computer",incomplete
-"I found an interesting article but",incomplete
-"He is playing basketball so",incomplete
-"The car was driving but",incomplete
-"What does that mean?",complete
-"And I am",incomplete
-"Today is Wednesday.",complete
-"Next we will",incomplete
-"Are you free tommorow?",complete
-"She goes by",incomplete
+"I am tired of waiting for the plane",incomplete
+"She can only do a bit",incomplete
+"He had a heart attack after long time",incomplete
+"They said there was a problem due to the",incomplete
+"Then I said no that isn't the",incomplete
+"Then I said yes can you fix it because that thing",incomplete
+"What do you say, if",incomplete
+"What do I do, for",incomplete
+"When should we get back, or",incomplete
+"How can they do that with it, but not for",incomplete
+"Well who is the person, so you will take the",incomplete
+"It has long hair and nice smile",complete
+"She is very tired and very very done",complete
+"He can sleep well since he is the best",complete
+"Let's see if this is going to work but lets all wait",incomplete
+"The problem isn't that hard after he fixes",incomplete
+"This is too long of a game of time to do with",incomplete
+"The car was too big to take with and take the people and move from",incomplete
+"I am here now with my dog to ask what are we doing when with his best person but also can't tell you when",incomplete
+"How are we going to get home if she has to fix that and they both take too long if they keep",incomplete
+"Can you please fix them there when you get the opportunity or should I talk to them when you",incomplete
+"She is not feeling good so I had hoped they got her food as they",incomplete
+"He gets to say what he likes it does matter it was always the same",incomplete
+"Can we not give it to them what we want it to but they always get",incomplete
+"Oh wow it is this person that it all went wrong with and I can't deal and I dont know it all",incomplete
+"I knew about that the thing you said but but I cant say for that for its bad",incomplete
+"We need to find some way or some thing the best is to know what the best best good place to to be but is hard to",incomplete
+"Do you know I need to see so as the doctor said is to keep that up and is not the only way you say it",incomplete
+"Since it is easy to know and you see them you did the math but we were wrong",incomplete
+"I want to to add this with the best possible and its good or bad as you want that you cant take it all",incomplete
+"I don't remember this thing that said you will love since you know it was not meant to",incomplete
+"Can you please give me 5 good choices that you can know will make it done now what are so",incomplete
+"The car needs to be washed but there was lots of ice all but so the road",incomplete
+"I am going to the gym but that is not a good thing this weekend why does what time",incomplete
+"The sky is filled with stars I went to see and they are so beautiful I can't wait but maybe",incomplete
+"She likes to cook and bake she cant but what to do its good to say but lets do more as well",incomplete
+"He is writing a novel in his spare and and I and the writer can not stand each other what else do",incomplete
+"They are visiting their family; on the holidays with good and",incomplete
+"How can it be so hard since it is easy",complete
+"We are planning a surprise; because it's what should be that I say why",incomplete
+"The cat is purring, but with a very loud purr.",complete
+"The tea tastes like tea, but is old",complete
+"I need to pay the bills what do I have again;.",complete
+"The children take exams, I hate them so",complete
+"She has a big day",complete
+"Please do what we talked about it's that good to say",complete
+"It's always the same story every single day.",complete
+"He just left what did what do that say",complete
+"Can you please do it again it had been so what time to do now ok then what",incomplete
+"How can it happen now after everything that has been done; you were just like whatever since you",incomplete
+"They all knew that she was always happy what did you ever do now",complete
+"Do you think you have to stop with the stuff",complete
+"Have you ever wondered is it really okay so or so ok",incomplete
+"It might be ok and you want the things but don't know but you are okay for me what",incomplete
+"I want them to fix this fast",complete
+"Is it the case to let it do the what",incomplete
+"Then there is nothing else that is going to happen from the story since you",incomplete
+"With all those people that he can never ever see now or see them the",incomplete
+"With the best of what you could have to do for what you want that or the other",incomplete
+"And that is what can be to get or done",incomplete
+"She runs so fast it makes you wish you were that what",incomplete
+"With all your time you have a better time why not say",incomplete
+"Why does it taste so bad when you have to do the best or not to do",incomplete
+"He knows how to fly with a helicopter to what city the city was",incomplete
+"With all of them that is the way to go there is or was and that thing",incomplete
+"It has to be one thing so please do tell and is it for there too bad",incomplete
+"There are no days with rain again and again since its hard",incomplete
+"The computer that is here or there but was good always since but lets get away this part",incomplete
+"Then do what I can and cant so it is you but never been",incomplete
+"I will try to make a good life if you will",complete
+"Lets fix this and see if there is a better life than no life",complete

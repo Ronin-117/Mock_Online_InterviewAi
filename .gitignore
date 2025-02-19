@@ -169,3 +169,8 @@ cython_debug/
 
 # PyPI configuration file
 .pypirc
+
+# Prevent pushing trained Models into GIT
+results/
+model.safetensors
+optimizer.pt

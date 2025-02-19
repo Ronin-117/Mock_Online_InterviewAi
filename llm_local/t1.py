@@ -1,7 +1,7 @@
 import ollama
 
 model="deepseek-r1:8b"
-qn="who is iron man in 10 words"
+qn="who is iron man"
 
 response=ollama.chat(model=model, messages=[
     {
