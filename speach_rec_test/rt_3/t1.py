@@ -12,7 +12,7 @@ def set_ear():
         r.adjust_for_ambient_noise(source)
     return source
 
-def Hear(source):
+def Listen(source):
     print("listening...")
     try:
         with sr.Microphone() as source:

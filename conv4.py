@@ -2,7 +2,7 @@
 from gem_test.get_resume import get_resume
 from gem_test.t2 import get_chat,stream_complete_sentences
 from tts_test.t5 import GTTSTTSPlayer
-from speach_rec_test.rt_3.t1 import set_ear,Hear
+from speach_rec_test.rt_3.t1 import set_ear,Listen
 from str_comp_test.t5 import set_sentance_complete,is_complete
 import time
 
@@ -12,18 +12,28 @@ resume_path = r"C:\Users\njne2\Desktop\resume\Neil Joseph.pdf"
 job="software engineer"
 resume=get_resume(resume_path)
 chat=get_chat(resume,job,"Challenging_interviewer")
-response=set_ear()
-tokenizer, model, device = set_sentance_complete(results_path=r"str_comp_test\results")
+
+#init tts code
 player=GTTSTTSPlayer(lang="en", slow=False)
+
+#init speech recognition code
+response=set_ear()
+print("talk something to check microphone")
+player.play_text("talk something to check microphone")
+Listen(response)
+if response:
+    player.play_text("Thats great now we can start the interview")
+tokenizer, model, device = set_sentance_complete(results_path=r"str_comp_test\results")
+
+#start the interview
 player.play_text("Good morning lets get in to it without any delay.")
-labels= {0: "complete", 1: "incomplete"}
 
 for i in range(3):
     print("Start talking")
     transcript=""
     while True:
         tick=time.time()
-        trans= Hear(response)
+        trans= Listen(response)
         if trans:
             for line in trans:
                 transcript+=line

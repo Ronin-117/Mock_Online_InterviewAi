@@ -2,7 +2,7 @@
 from gem_test.get_resume import get_resume
 from gem_test.t2 import chat_with_model, get_chat, stream_chat
 from tts_test.t4 import gtts_tts_and_play as generate_and_stream_audio_from_text
-from speach_rec_test.rt_3.t1 import set_ear,Hear
+from speach_rec_test.rt_3.t1 import set_ear,Listen
 import time
 
 
@@ -20,7 +20,7 @@ for i in range(3):
     transcript=""
     tick=time.time()
     #trans=start_listening()
-    trans= Hear(response)
+    trans= Listen(response)
     for line in trans:
         transcript+=line
     tock=time.time()
