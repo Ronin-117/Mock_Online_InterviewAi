@@ -6,7 +6,7 @@ from speach_rec_test.rt_3.t1 import set_ear,Listen
 from str_comp_test.t5 import set_sentance_complete,is_complete
 import time
 
-#init gemini code
+#init gemini code for interview
 resume_path = r"C:\Users\njne2\Desktop\resume\Neil Joseph.pdf"
 job="software engineer"
 resume=get_resume(resume_path)
