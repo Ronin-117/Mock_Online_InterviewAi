@@ -1,10 +1,10 @@
 from transformers import BertTokenizer, BertForSequenceClassification
 import torch
 
-def set_sentance_complete():
+def set_sentance_complete(results_path=r'./results'):
     # 1. Load the tokenizer and model
-    tokenizer = BertTokenizer.from_pretrained(r'./results') # same folder that the pretrained values are
-    model = BertForSequenceClassification.from_pretrained(r'./results') # same folder that the pretrained values are
+    tokenizer = BertTokenizer.from_pretrained(results_path) # same folder that the pretrained values are
+    model = BertForSequenceClassification.from_pretrained(results_path) # same folder that the pretrained values are
 
     # 2. Define the device
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -18,6 +18,8 @@ def is_complete(text, tokenizer, model, device): #now passes arguments
     """
     Classifies if the given text is complete or incomplete using a pre-trained DistilBERT model.
     """
+    if not text:
+        return 1
     model.eval()  # Set the model to evaluation mode
     model.to(device) #move model to device
 
