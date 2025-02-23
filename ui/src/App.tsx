@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { Camera, MicOff, Mic, Video, VideoOff, X, Home, Users, Info, Bug, Maximize2, Minimize2 } from 'lucide-react';
+import { Bug, Camera, Home, Info, Maximize2, Mic, MicOff, Minimize2, Users, Video, VideoOff, X } from 'lucide-react';
+import { useEffect, useRef, useState } from 'react';
 
 function Header({ onHomeClick, onContactClick, onAboutClick, onMansClick }: {
   onHomeClick: () => void;
@@ -16,7 +16,7 @@ function Header({ onHomeClick, onContactClick, onAboutClick, onMansClick }: {
               onClick={onMansClick}
               className="text-2xl font-bold text-blue-600 hover:text-blue-800 transition-colors"
             >
-              MANS
+              ORATIS
             </button>
           </div>
           <nav className="flex space-x-8">
