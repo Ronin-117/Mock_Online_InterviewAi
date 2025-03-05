@@ -1,0 +1,101 @@
+@startuml
+
+' Use Case Diagram
+actor User
+actor "System Administrator" as Admin
+
+rectangle "Oratis System" {
+    usecase "Register/Login" as UC1
+    usecase "Start Interview Simulation" as UC2
+    usecase "Analyze Speech" as UC3
+    usecase "Analyze Non-Verbal Cues" as UC4
+    usecase "Provide Feedback" as UC5
+}
+
+User --> UC1
+User --> UC2
+User --> UC3
+User --> UC4
+User --> UC5
+Admin --> (Manage System)
+
+@enduml
+```
+
+```plantuml
+@startuml
+
+' Class Diagram
+class User {
+    -email: String
+    -password: String
+    +login()
+    +register()
+}
+
+class Interview {
+    -questions: List<String>
+    +startSession()
+    +evaluateResponse()
+}
+
+class SpeechRecognition {
+    +transcribeAudio()
+}
+
+class NonVerbalAnalysis {
+    +evaluatePosture()
+    +evaluateEyeContact()
+}
+
+class Feedback {
+    +generateReport()
+}
+
+User --> Interview
+Interview --> SpeechRecognition
+Interview --> NonVerbalAnalysis
+SpeechRecognition --> Feedback
+NonVerbalAnalysis --> Feedback
+
+@enduml
+```
+
+```plantuml
+@startuml
+
+' Sequence Diagram
+actor User
+participant "Oratis System" as System
+participant "Speech Recognition" as SR
+participant "Non-Verbal Analysis" as NVA
+participant "Feedback Module" as FM
+
+User -> System: Start Interview
+System -> SR: Capture & Transcribe Speech
+System -> NVA: Analyze Posture & Eye Contact
+SR -> FM: Send Transcription Data
+NVA -> FM: Send Non-Verbal Analysis
+FM -> User: Provide Feedback
+
+@enduml
+```
+
+```plantuml
+@startuml
+
+' Activity Diagram
+start
+:User logs in;
+diamond "Valid Login?"
+    yes -> :User selects interview type;
+    no -> :Show error message;
+    no -> stop
+:Start Interview Simulation;
+:Capture User Speech & Video;
+:Analyze Speech & Non-Verbal Cues;
+:Generate Performance Report;
+:Display Feedback;
+stop
+
+@enduml

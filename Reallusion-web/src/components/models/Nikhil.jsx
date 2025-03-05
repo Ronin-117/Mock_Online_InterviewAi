@@ -1,7 +1,7 @@
-import React, { useEffect, useRef, useState } from 'react'
-import { useGLTF, useAnimations } from '@react-three/drei'
-import { useLipsync } from '../../hooks/useLipsync';
+import { useAnimations, useGLTF } from '@react-three/drei';
+import React, { useEffect, useRef, useState } from 'react';
 import { useHeadTracking } from '../../hooks/useHeadTracking';
+import { useLipsync } from '../../hooks/useLipsync';
 
 export function Nikhil(props) {
   const { nodes, materials, scene } = useGLTF('/nikhil.glb')
