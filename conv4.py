@@ -8,7 +8,7 @@ import time
 
 #init gemini code for interview
 resume_path = r"C:\Users\njne2\Desktop\resume\Neil Joseph.pdf"
-job="software engineer"
+job="Ai software engineer"
 resume=get_resume(resume_path)
 chat=get_chat(resume,job,"Challenging_interviewer")
 
