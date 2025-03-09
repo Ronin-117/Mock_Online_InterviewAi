@@ -27,7 +27,7 @@ def Listen(source):
                 if text:
                     return text
                 else:
-                    Hear(source)
+                    Listen(source)
             except sr.UnknownValueError:
                 print("faster-Whisper could not understand audio")
             except sr.RequestError as e:
@@ -37,5 +37,5 @@ def Listen(source):
 
 if __name__ == "__main__":
     source = set_ear()
-    Hear(source)
+    Listen(source)
 

@@ -22,7 +22,7 @@ player.play_text("talk something to check microphone")
 Listen(response)
 if response:
     player.play_text("Thats great now we can start the interview")
-tokenizer, model, device = set_sentance_complete()
+tokenizer, model, device = set_sentance_complete("./str_comp_test/results")
 
 #start the interview
 player.play_text("Good morning lets get in to it without any delay.")

@@ -1,11 +1,11 @@
 from transformers import BertTokenizer, BertForSequenceClassification
 import torch
 
-def set_sentance_complete(results_path=r'./results'):
+def set_sentance_complete(results_path):
     print(f"{results_path =}")
     # 1. Load the tokenizer and model
-    tokenizer = BertTokenizer.from_pretrained(results_path) # same folder that the pretrained values are
-    model = BertForSequenceClassification.from_pretrained(results_path) # same folder that the pretrained values are
+    tokenizer = BertTokenizer.from_pretrained(results_path,local_files_only=True) # same folder that the pretrained values are
+    model = BertForSequenceClassification.from_pretrained(results_path,local_files_only=True) # same folder that the pretrained values are
 
     # 2. Define the device
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -33,7 +33,7 @@ def is_complete(text, tokenizer, model, device): #now passes arguments
 # 4. Example usage
 
 if __name__ == "__main__":
-    tokenizer, model, device = set_sentance_complete()
+    tokenizer, model, device = set_sentance_complete("results") #now we pass the training and test objects in here
     text_to_test = "hello my name is neil joseph and i am a data scientist. i like to "  #@param {type:"string"}
     # Run the check
     prediction = is_complete(text_to_test, tokenizer, model, device) #now we pass the training and test objects in here, we also pass the text string

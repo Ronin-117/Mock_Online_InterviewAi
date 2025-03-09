@@ -1,5 +1,6 @@
 from django.shortcuts import render
-
+from django.conf import settings  # Import settings
+import os  # Import os
 # Create your views here.
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
@@ -29,8 +30,10 @@ def start_interview(request):
     if response:
         player.play_text("Thats great now we can start the interview")
     print("microphone checked")
-    tokenizer, model, device = set_sentance_complete(results_path=r"str_comp_test/results")
-
+    results_path = os.path.join(settings.BASE_DIR,'myapp', 'str_comp_test', 'results')
+    print(f"{results_path =}")
+    tokenizer, model, device = set_sentance_complete(results_path=results_path) 
+    print("completeness check model loaded")
     #start the interview
     player.play_text("Good morning lets get in to it without any delay.")
 
