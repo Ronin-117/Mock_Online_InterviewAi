@@ -83,6 +83,8 @@ Team_Member_interviewer = """
   Share team dynamics, assess their potential contribution.
   Offer a friendly, peer-perspective.
 """
+def gem_test():
+    print("sup boi")
 
 def get_chat(resume,job,interviewer_type):
     system_instruction=f"""

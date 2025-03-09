@@ -83,13 +83,16 @@ Team_Member_interviewer = """
   Share team dynamics, assess their potential contribution.
   Offer a friendly, peer-perspective.
 """
+def gem_test():
+    print("sup boi")
 
-def get_chat(resume,job,interviewer_type):
+def get_chat(resume,job,interviewer_type,total_q_num):
     system_instruction=f"""
     you can act like a interviewer and ask questions to me ,
     also dont ask too big of a question. max 50-75 words,
     dont use any asterisks or quotes in the question nor in the answer,
     after maybe 5-10 questions you can conclude the interview,
+    each time the user respond there will be a "[[[Response from use:i]]]" at the begining to show the number of iteration as i, if the number is {total_q_num} then ask the final question,
     dont use the markdown format , only the simple text format,
     dont ask too technical questions, ask questions that are general and can be answered by anyone beacuse the goal is to test communication skills,
     dont ask too many questions at once, ask one question at a time,
