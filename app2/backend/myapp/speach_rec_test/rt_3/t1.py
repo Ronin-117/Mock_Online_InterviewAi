@@ -4,7 +4,7 @@ import speech_recognition as sr
 
 # obtain audio from the microphone
 r = sr.Recognizer()
-r.pause_threshold = 0.8
+r.pause_threshold = 0.3 #0.8
 
 def set_ear():
     print("A moment of silence, please...")
