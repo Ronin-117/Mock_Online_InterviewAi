@@ -1,0 +1,11 @@
+Question 1: Good morning.
+Question 1: Thanks for being here today.
+Question 1: To start, can you briefly describe a situation where your problem-solving skills were truly tested, and what specific steps you took to navigate that challenge?
+Question 2: I understand.
+Question 2: Could you elaborate on a time when you had to learn a new technology or skill quickly for a project?
+Question 2: What was your approach, and what obstacles did you encounter?
+Question 3: Okay. Do you prefer working independently or as part of a team?
+Question 4: Interesting. Can you describe a time you faced a significant setback in a project?
+Question 4: What did you learn from that experience, and how did you adapt your approach afterward?
+Question 4: This is the last question.
+Question 5: I understand. Thank you for your time. We will be in touch.
