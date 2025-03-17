@@ -25,11 +25,11 @@ def start_interview(request):
     player=GTTSTTSPlayer(lang="en", slow=False)
 
     #init speech recognition code
-    response=set_ear()
+    r=set_ear()
     print("talk something to check microphone")
     player.play_text("talk something to check microphone")
-    Listen(response)
-    if response:
+    trans=Listen(r)
+    if trans:
         player.play_text("Thats great now we can start the interview")
     print("microphone checked")
     results_path = os.path.join(settings.BASE_DIR,'myapp', 'str_comp_test', 'results')
@@ -43,26 +43,34 @@ def start_interview(request):
         transcript=""
         while True:
             tick=time.time()
-            trans= Listen(response)
+            trans=Listen(r)
             if trans:
                 for line in trans:
                     transcript+=line
+            else:
+                print("no speech detected")
+                continue
             tock=time.time()
             print("whisper",tock-tick)
             if is_complete(transcript, tokenizer, model, device)==0:
                 print("sentence complete")
                 break
+            else:
+                print("sentence not complete")
             print(f"{transcript =}")
-        transcript=f"[[[Response from use:{i}]]]"+transcript
+        transcript=f"[[[Response from user:{i}]]]"+transcript
         # Stream Gemini output and TTS each token as it arrives.
         tick=time.time()
         response_text = ""
         pattern = r'\[\[\[\d+\]\]\]'
-        for token in stream_complete_sentences(transcript, chat):
-            response_text += token
-            if re.search(pattern, token):
-                token=re.sub(pattern,"",token)
-            player.play_text(token)
+        while True:
+            for token in stream_complete_sentences(transcript, chat):
+                response_text += token
+                if re.search(pattern, token):
+                    token=re.sub(pattern,"",token)
+                player.play_text(token)
+            if len(response_text) > 10:
+                break
         tock=time.time()
         print("gem streaming & tts", tock-tick)
         print(response_text)

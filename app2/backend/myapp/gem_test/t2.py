@@ -91,15 +91,14 @@ def get_chat(resume,job,interviewer_type,total_q_num):
     you can act like a interviewer and ask questions to me ,
     also dont ask too big of a question. max 50-75 words,
     dont use any asterisks or quotes in the question nor in the answer,
-    after maybe 5-10 questions you can conclude the interview,
-    each time the user respond there will be a "[[[Response from use:i]]]" at the begining to show the number of iteration as i, if the number is {total_q_num} then ask the final question,
+    each time the user respond there will be a "[[[Response from user:i]]]" in the response to show the number of iteration as i, if the number become {total_q_num-1} then ask the final question,also when asking the last quetion metion that its the last question in the response,
     dont use the markdown format , only the simple text format,
     dont ask too technical questions, ask questions that are general and can be answered by anyone beacuse the goal is to test communication skills,
     dont ask too many questions at once, ask one question at a time,
     dont use any special characters in the question that may confuse a text to speach model,
     you are a interviewer and you are interviewing me for a job for a role as a {job},
     for context you can use the content of my resume: {resume},
-    """
+    """ 
 
     chat = client.chats.create(
         model=MODEL_ID,
