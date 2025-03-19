@@ -14,14 +14,31 @@ from app2.backend.myapp.tts_test.t5 import GTTSTTSPlayer
 from app2.backend.myapp.speach_rec_test.rt_3.t1 import set_ear,Listen
 from app2.backend.myapp.str_comp_test.t5 import set_sentance_complete,is_complete
 import time
+from django.core.files.storage import default_storage
+from django.core.files.base import ContentFile
 
 @api_view(['POST']) 
 def start_interview(request):
     try:
         #init gemini code for interview
-        resume_path = r"C:\Users\njne2\Desktop\resume\Neil Joseph.pdf"
         job="Ai software engineer"
-        resume=get_resume(resume_path)
+        resume_file = request.FILES.get('resume_file', None)
+        resume_text = request.data.get('resume_text', None)
+        if resume_file:
+            # Handle file upload
+            file_name = default_storage.save(resume_file.name, ContentFile(resume_file.read()))
+            resume_path = os.path.join(settings.MEDIA_ROOT, file_name)
+            resume = get_resume(resume_path)
+            print(f"from uploaded resume:{resume}")
+        elif resume_text:
+            # Use the provided resume text
+            resume = resume_text
+            print(f"from imported resume:{resume}")
+        else:
+            # Fallback to the default resume path if no resume text is provided
+            resume_path = r"C:\Users\njne2\Desktop\resume\Neil Joseph.pdf"
+            resume=get_resume(resume_path)
+            print(f"from default resume:{resume}")
         chat=get_chat(resume,job,"Challenging_interviewer",total_q_num=5)
 
         #init tts code
@@ -103,7 +120,7 @@ def start_interview(request):
             tock=time.time()
             print("gem streaming & tts", tock-tick)
             print(response_text)
-        return Response({"message": f"interview completed"}, status=200)
+        return Response({"message": "interview completed", "redirect_url": "/interview_results"}, status=200) #change the /results to your results page url
     except Exception as e:
         print(e)
         return Response({"error": str(e)}, status=500)

@@ -177,6 +177,8 @@ function App() {
   const [isVideoOff, setIsVideoOff] = useState(false);
   const [showContact, setShowContact] = useState(false);
   const [showAbout, setShowAbout] = useState(false);
+  const [resumeText, setResumeText] = useState<string | null>(null); // New state for resume text
+  const [selectedFile, setSelectedFile] = useState<File | null>(null); // New state for the selected file
   const [previousState, setPreviousState] = useState<{
     startInterview: boolean;
     endInterview: boolean;
@@ -232,6 +234,8 @@ function App() {
       await document.exitFullscreen();
     }
   };
+
+
 
   useEffect(() => {
     if (endInterview && document.fullscreenElement) {
@@ -294,10 +298,37 @@ function App() {
     setStartInterview(true);
     setEndInterview(false);
     setEarlyEnd(false);
-    axios.post('http://localhost:8000/api/start_interview/') // Replace with your actual Django endpoint and action
+
+      // Prepare data for API call
+      const formData = new FormData();
+
+      if (selectedFile) {
+        formData.append('resume_file', selectedFile);
+      }
+      if (resumeText) {
+        formData.append('resume_text', resumeText);
+      }
+
+    axios.post('http://localhost:8000/api/start_interview/', formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    }) // Replace with your actual Django endpoint and action
       .then(response => {
-        setMessage(response.data.message); // Update state with response message
-        setStartInterview(true); // Start the interview UI
+        if (response.data.message === "interview completed" && response.data.redirect_url) {
+          // Redirect to the results page
+          setStartInterview(false);
+          setEndInterview(true);
+          //window.location.href = response.data.redirect_url; // we dont need this line because we are not redirecting to a new page
+        } else if (response.data.error) {
+          // Handle errors (e.g., display an error message)
+          console.error("Error:", response.data.error);
+          alert("An error occurred: " + response.data.error);
+        } else {
+          // Handle other success messages if needed
+          console.log("Success:", response.data.message);
+          alert(response.data.message)
+        }
       })
       .catch(error => {
         console.error('Error starting interview:', error);
@@ -365,6 +396,34 @@ function App() {
       setShowAbout(false);
     }
   };
+
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      setSelectedFile(file);
+      setResumeText(null); // Reset resumeText when a new file is selected
+
+      const fileExtension = file.name.split('.').pop()?.toLowerCase();
+
+      if (fileExtension === 'txt') {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          const text = e.target?.result as string;
+          setResumeText(text);
+        };
+        reader.readAsText(file);
+      } else if (fileExtension === 'pdf' || fileExtension === 'docx') {
+        // For PDF and DOCX, we don't read the content here.
+        // We just store the file object in selectedFile.
+        // The backend will handle the reading.
+        console.log(`File type: ${fileExtension}. File object stored.`);
+      } else {
+        alert('Unsupported file type. Please select a .txt, .pdf, or .docx file.');
+        setSelectedFile(null); // Clear the selected file
+      }
+    }
+  };
+
 
   // Debug button to force show results
   const handleDebugClick = () => {
@@ -733,6 +792,22 @@ function App() {
               body language, and overall performance. Our advanced AI will analyze your video responses and provide detailed
               suggestions for improvement.
             </p>
+            {/* File Upload Input */}
+            <div className="mb-4">
+            <input
+              type="file"
+              id="resume-upload" // Add an ID
+              accept=".txt,.pdf,.docx" // Specify accepted file types
+              onChange={handleFileChange}
+              className="hidden"
+            />
+            <label
+                htmlFor="resume-upload" // Link the label to the input
+                className="bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors cursor-pointer"
+              >
+                Choose File
+              </label>
+              </div>
             <button
               onClick={handleStartInterview}
               className="bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors"
