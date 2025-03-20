@@ -2,7 +2,6 @@
 import React, { useEffect, useRef } from 'react';
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 
 interface AIModelProps {
   isVideoOff: boolean;
@@ -93,12 +92,6 @@ const AIModel: React.FC<AIModelProps> = ({ isVideoOff, modelScale }) => {
       }
     );
 
-    // Orbit Controls (optional)
-    const controls = new OrbitControls(camera, renderer.domElement);
-    controls.enableDamping = true;
-    controls.dampingFactor = 0.25;
-    controls.screenSpacePanning = false;
-    controls.maxPolarAngle = Math.PI / 2;
 
     // Resize handling
     const handleResize = () => {
@@ -114,7 +107,6 @@ const AIModel: React.FC<AIModelProps> = ({ isVideoOff, modelScale }) => {
     // Cleanup
     return () => {
       window.removeEventListener('resize', handleResize);
-      controls.dispose();
       renderer.dispose();
       container.removeChild(renderer.domElement);
     };
