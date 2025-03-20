@@ -1,7 +1,7 @@
 import { Bug, Camera, Home, Info, Maximize2, Mic, MicOff, Minimize2, Users, Video, VideoOff, X } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 import axios from 'axios';
-
+import AIModel from './components/AIModel'; // Import the AIModel component
 
 function Header({ onHomeClick, onContactClick, onAboutClick, onMansClick }: {
   onHomeClick: () => void;
@@ -641,24 +641,7 @@ function App() {
                 {/* Mock 3D AI Model */}
                 {!isVideoOff && (
                   <div className="absolute inset-0 flex items-center justify-center">
-                    <div 
-                      className="relative w-96 h-96 transition-transform duration-300"
-                      style={{ transform: modelScale }}
-                    >
-                      {/* Head */}
-                      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-32 rounded-full bg-gradient-to-b from-blue-400 to-blue-500 shadow-lg">
-                        {/* Face Features */}
-                        <div className="relative w-full h-full">
-                          <div className="absolute top-12 left-8 w-4 h-2 bg-gray-800 rounded-full"></div>
-                          <div className="absolute top-12 right-8 w-4 h-2 bg-gray-800 rounded-full"></div>
-                          <div className="absolute bottom-8 left-1/2 -translate-x-1/2 w-12 h-1 bg-gray-800 rounded-full"></div>
-                        </div>
-                      </div>
-                      {/* Neck */}
-                      <div className="absolute top-32 left-1/2 -translate-x-1/2 w-12 h-16 bg-gradient-to-b from-blue-500 to-blue-600"></div>
-                      {/* Shoulders/Upper Body */}
-                      <div className="absolute top-48 left-1/2 -translate-x-1/2 w-64 h-32 bg-gradient-to-b from-blue-600 to-blue-700 rounded-t-full transform -translate-y-8"></div>
-                    </div>
+                    <AIModel isVideoOff={isVideoOff} modelScale={modelScale} />
                   </div>
                 )}
                 {isVideoOff && (
