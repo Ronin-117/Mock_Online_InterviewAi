@@ -38,7 +38,7 @@ const AIModel: React.FC<AIModelProps> = ({ isVideoOff, modelScale }) => {
     // Load the GLB model
     const loader = new GLTFLoader();
     loader.load(
-      '/models/nikhil.glb', // Replace with your model path
+      '/models/nikhil2.glb', // Replace with your model path
       (gltf) => {
         const model = gltf.scene;
         scene.add(model);
@@ -65,18 +65,38 @@ const AIModel: React.FC<AIModelProps> = ({ isVideoOff, modelScale }) => {
         const animations = gltf.animations;
         if (animations && animations.length) {
           const mixer = new THREE.AnimationMixer(model);
-          const action = mixer.clipAction(animations[0]); // Play the first animation
-          action.play();
+          // Find the "party-m-0001" animation
+          const partyAnimation = animations.find(
+            (animation) => animation.name === 'party-m-0001|A|Default_party-m-0001'
+          );
 
-          // Animation loop
-          const clock = new THREE.Clock();
-          const animate = () => {
-            requestAnimationFrame(animate);
-            const delta = clock.getDelta();
-            mixer.update(delta);
-            renderer.render(scene, camera);
-          };
-          animate();
+          if (partyAnimation) {
+            const action = mixer.clipAction(partyAnimation);
+            action.play();
+
+            // Animation loop
+            const clock = new THREE.Clock();
+            const animate = () => {
+              requestAnimationFrame(animate);
+              const delta = clock.getDelta();
+              mixer.update(delta);
+              renderer.render(scene, camera);
+            };
+            animate();
+          } else {
+            console.warn('Animation "party-m-0001|A|Default_party-m-0001" not found.');
+            // If the specific animation is not found, you can play the first one or do nothing
+             const action = mixer.clipAction(animations[0]); // Play the first animation
+             action.play();
+             const clock = new THREE.Clock();
+             const animate = () => {
+               requestAnimationFrame(animate);
+               const delta = clock.getDelta();
+               mixer.update(delta);
+               renderer.render(scene, camera);
+             };
+             animate();
+          }
         } else {
           // No animation, just render
           const animate = () => {
@@ -91,7 +111,6 @@ const AIModel: React.FC<AIModelProps> = ({ isVideoOff, modelScale }) => {
         console.error('An error happened:', error);
       }
     );
-
 
     // Resize handling
     const handleResize = () => {

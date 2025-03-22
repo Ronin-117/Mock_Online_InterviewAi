@@ -1,7 +1,7 @@
 import { Bug, Camera, Home, Info, Maximize2, Mic, MicOff, Minimize2, Users, Video, VideoOff, X } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 import axios from 'axios';
-import AIModel from './components/AIModel'; // Import the AIModel component
+import AIModel from './components/AIModel2'; // Import the AIModel component
 
 function Header({ onHomeClick, onContactClick, onAboutClick, onMansClick }: {
   onHomeClick: () => void;
