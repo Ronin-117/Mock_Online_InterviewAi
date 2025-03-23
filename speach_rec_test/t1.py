@@ -1,3 +1,5 @@
+# fh syuffs dowloaded to C:\Users\njne2\anaconda3\envs\mini_project\Lib\site-packages\huggingface_hub\file_download.py:140:
+
 from faster_whisper import WhisperModel
 
 model_size = "large-v3"
@@ -10,7 +12,7 @@ model = WhisperModel(model_size, device="cuda", compute_type="float16")
 # or run on CPU with INT8
 # model = WhisperModel(model_size, device="cpu", compute_type="int8")
 
-segments, info = model.transcribe("1.wav", beam_size=5)
+segments, info = model.transcribe(r"C:\Users\njne2\Desktop\Cuda_PWR\CREATIVE\Lifeline\audio.wav", beam_size=5)
 
 print("Detected language '%s' with probability %f" % (info.language, info.language_probability))
 
