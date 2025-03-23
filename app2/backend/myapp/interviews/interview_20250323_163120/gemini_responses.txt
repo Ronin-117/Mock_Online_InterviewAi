@@ -1,0 +1,12 @@
+Question 1: Good morning Neil, thanks for being here.
+Question 1: To start, can you briefly describe a situation where your problem-solving skills were truly tested, and what specific steps you took to navigate it?
+Question 2: Alright, Neil.
+Question 2: Considering your experience with AI and ML implementation, tell me about a time when a project didn't go as planned.
+Question 2: What was the biggest obstacle, and how did you attempt to overcome it?
+Question 3: Okay.
+Question 3: Your resume highlights team management and leadership.
+Question 3: Describe a situation where you had to motivate a team facing a significant setback. What specific actions did you take, and what was the outcome?
+Question 4: Okay Neil, this is the final question.
+Question 4: Considering your various projects, including the AI assistant and sustainable project management, which project do you feel presented the steepest learning curve, and why?
+Question 5: Understood. Thank you for your time, Neil.
+Question 5: We appreciate you sharing your experiences with us.

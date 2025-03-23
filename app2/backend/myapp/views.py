@@ -22,6 +22,7 @@ def start_interview(request):
     try:
         #init gemini code for interview
         job="Ai software engineer"
+        q_num=2
         resume_file = request.FILES.get('resume_file', None)
         resume_text = request.data.get('resume_text', None)
         if resume_file:
@@ -39,7 +40,7 @@ def start_interview(request):
             resume_path = r"C:\Users\njne2\Desktop\resume\Neil Joseph.pdf"
             resume=get_resume(resume_path)
             print(f"from default resume:{resume}")
-        chat=get_chat(resume,job,"Challenging_interviewer",total_q_num=5)
+        chat=get_chat(resume,job,"Challenging_interviewer",total_q_num=q_num)
 
         #init tts code
         player=GTTSTTSPlayer(lang="en", slow=False)
@@ -74,7 +75,7 @@ def start_interview(request):
 
         #start the interview
         player.play_text("Good morning lets get in to it without any delay.")
-        for i in range(5):
+        for i in range(q_num):
             print("Start talking")
             transcript=""
             listen_attempts = 0  # Counter for Listen() attempts

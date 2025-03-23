@@ -16,7 +16,7 @@ class GTTSTTSPlayer:
 
     def _generate_audio(self, text):
         try:
-            tts = gTTS(text=text, lang=self.lang, slow=self.slow)
+            tts = gTTS(text=text, lang=self.lang, slow=self.slow,tld='ca') 
             buf = io.BytesIO()
             tts.write_to_fp(buf)
             buf.seek(0)

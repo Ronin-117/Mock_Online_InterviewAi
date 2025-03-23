@@ -4,7 +4,7 @@ from gtts import gTTS
 from pydub import AudioSegment
 import sounddevice as sd
 
-def gtts_tts_and_play(text, lang="en", slow=False):
+def gtts_tts_and_play(text, lang="es", slow=False):
     """
     Generate and play TTS audio using gTTS with a minimal memory footprint.
     
@@ -15,7 +15,7 @@ def gtts_tts_and_play(text, lang="en", slow=False):
     """
     try:
         # Generate speech audio directly in memory
-        tts = gTTS(text=text, lang=lang, slow=slow)
+        tts = gTTS(text=text, lang=lang, slow=slow,tld="us")
         buf = io.BytesIO()
         tts.write_to_fp(buf)
         buf.seek(0)

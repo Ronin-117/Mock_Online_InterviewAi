@@ -173,7 +173,7 @@ function App() {
   const [startInterview, setStartInterview] = useState(false);
   const [endInterview, setEndInterview] = useState(false);
   const [earlyEnd, setEarlyEnd] = useState(false);
-  const [isMuted, setIsMuted] = useState(false);
+  const [isMuted, setIsMuted] = useState(true);
   const [isVideoOff, setIsVideoOff] = useState(false);
   const [showContact, setShowContact] = useState(false);
   const [showAbout, setShowAbout] = useState(false);
@@ -270,7 +270,7 @@ function App() {
     setStartInterview(false);
     setEndInterview(false);
     setEarlyEnd(false);
-    setIsMuted(false);
+    setIsMuted(true);
     setIsVideoOff(false);
     setShowContact(false);
     setShowAbout(false);

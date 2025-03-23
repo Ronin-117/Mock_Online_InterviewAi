@@ -1,0 +1,10 @@
+Question 1: Thanks for your interest in the AI Software Engineer role, Neil.
+Question 1: To start, can you describe a time when you faced a significant technical challenge in a project, and how you approached solving it, considering the skills listed on your resume?
+Question 2: I understand. Perhaps we can try a different approach.
+Question 2: Can you tell me about a time when your problem-solving skills were really put to the test, even if it wasn't directly related to AI or software engineering?
+Question 3: Okay. Let's shift gears slightly.
+Question 3: Considering your experience with team management and leadership, can you describe a situation where you had to motivate a team facing a setback or failure? What specific actions did you take?
+Question 4: Alright, Neil.
+Question 4: It seems you are unwilling to share any experiences at this time.
+Question 4: Let's try a more direct question.
+Question 4: Given your enthusiasm for AI and your skills in Python and TensorFlow, what do you perceive as the biggest limitation of current AI technology, and how would you propose to address it?
