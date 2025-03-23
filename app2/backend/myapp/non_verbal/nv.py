@@ -1,18 +1,18 @@
 import cv2
 import mediapipe as mp
 import numpy as np
+import time
+
 
 def set_non_verbal():
-    # Initialize Mediapipe Pose
-    mp_pose = mp.solutions.pose
-    mp_drawing = mp.solutions.drawing_utils
     # Open Webcam
+    time.sleep(2)
     cap = cv2.VideoCapture(0)
-    return mp_pose,mp_drawing,cap
+    return cap
     
 
 # Define Performance Metrics (Example: Posture & Hand Movements)
-def evaluate_posture(landmarks):
+def evaluate_posture(landmarks,mp_pose):
     # Get key landmarks for posture
     shoulder_left_y = landmarks[mp_pose.PoseLandmark.LEFT_SHOULDER].y
     shoulder_right_y = landmarks[mp_pose.PoseLandmark.RIGHT_SHOULDER].y
@@ -45,8 +45,9 @@ def evaluate_posture(landmarks):
 
 
 if __name__ == "__main__":
-    mp_pose,mp_drawing,cap=set_non_verbal()
-    
+    cap=set_non_verbal()
+    mp_pose = mp.solutions.pose
+    mp_drawing = mp.solutions.drawing_utils
     # Pose Estimation Loop
     with mp_pose.Pose(min_detection_confidence=0.5, min_tracking_confidence=0.5) as pose:
         while cap.isOpened():
@@ -63,7 +64,7 @@ if __name__ == "__main__":
                 mp_drawing.draw_landmarks(frame, result.pose_landmarks, mp_pose.POSE_CONNECTIONS)
 
                 # Evaluate Posture
-                posture,eye_contact = evaluate_posture(result.pose_landmarks.landmark)
+                posture,eye_contact = evaluate_posture(result.pose_landmarks.landmark,mp_pose)
 
                 # Display Feedback on Screen
                 cv2.putText(frame, posture, (50, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)

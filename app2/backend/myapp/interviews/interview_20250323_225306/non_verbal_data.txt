@@ -1,0 +1,4 @@
+good_posture: 30
+unclear_posture: 4
+good_eye_contact: 29
+no_eye_contact: 5

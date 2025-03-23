@@ -243,28 +243,28 @@ function App() {
     }
   }, [endInterview]);
 
-  useEffect(() => {
-    if (startInterview && !stream) {
-      navigator.mediaDevices.getUserMedia({ video: true, audio: true })
-        .then(mediaStream => {
-          setStream(mediaStream);
-          if (pipVideoRef.current) {
-            pipVideoRef.current.srcObject = mediaStream;
-          }
-        })
-        .catch(err => {
-          console.error("Error accessing camera:", err);
-          alert("Unable to access camera. Please check your permissions.");
-        });
-    }
+  // useEffect(() => {
+  //   if (startInterview && !stream) {
+  //     navigator.mediaDevices.getUserMedia({ video: true, audio: true })
+  //       .then(mediaStream => {
+  //         setStream(mediaStream);
+  //         if (pipVideoRef.current) {
+  //           pipVideoRef.current.srcObject = mediaStream;
+  //         }
+  //       })
+  //       .catch(err => {
+  //         console.error("Error accessing camera:", err);
+  //         alert("Unable to access camera. Please check your permissions.");
+  //       });
+  //   }
 
-    // Cleanup function
-    return () => {
-      if (stream) {
-        stream.getTracks().forEach(track => track.stop());
-      }
-    };
-  }, [startInterview]);
+  //   // Cleanup function
+  //   return () => {
+  //     if (stream) {
+  //       stream.getTracks().forEach(track => track.stop());
+  //     }
+  //   };
+  // }, [startInterview]);
 
   const resetStates = () => {
     setStartInterview(false);
@@ -294,47 +294,106 @@ function App() {
     }
   };
 
-  const handleStartInterview = () => {
+  // const handleStartInterview = () => {
+  //   setStartInterview(true);
+  //   setEndInterview(false);
+  //   setEarlyEnd(false);
+
+  //     // Prepare data for API call
+  //     const formData = new FormData();
+
+  //     if (selectedFile) {
+  //       formData.append('resume_file', selectedFile);
+  //     }
+  //     if (resumeText) {
+  //       formData.append('resume_text', resumeText);
+  //     }
+
+  //   axios.post('http://localhost:8000/api/start_interview/', formData, {
+  //     headers: {
+  //       'Content-Type': 'multipart/form-data'
+  //     }
+  //   }) // Replace with your actual Django endpoint and action
+  //     .then(response => {
+  //       if (response.data.message === "interview completed" && response.data.redirect_url) {
+  //         // Redirect to the results page
+  //         setStartInterview(false);
+  //         setEndInterview(true);
+  //         //window.location.href = response.data.redirect_url; // we dont need this line because we are not redirecting to a new page
+  //       } else if (response.data.error) {
+  //         // Handle errors (e.g., display an error message)
+  //         console.error("Error:", response.data.error);
+  //         alert("An error occurred: " + response.data.error);
+  //       } else {
+  //         // Handle other success messages if needed
+  //         console.log("Success:", response.data.message);
+  //         alert(response.data.message)
+  //       }
+  //     })
+  //     .catch(error => {
+  //       console.error('Error starting interview:', error);
+  //     });
+  // };
+//////////////////////////////////////////////////////////////////
+  const handleStartInterview = async () => {
     setStartInterview(true);
     setEndInterview(false);
     setEarlyEnd(false);
 
-      // Prepare data for API call
-      const formData = new FormData();
+    // Prepare data for API call
+    const formData = new FormData();
 
-      if (selectedFile) {
-        formData.append('resume_file', selectedFile);
-      }
-      if (resumeText) {
-        formData.append('resume_text', resumeText);
+    if (selectedFile) {
+      formData.append('resume_file', selectedFile);
+    }
+    if (resumeText) {
+      formData.append('resume_text', resumeText);
+    }
+
+    try {
+      // Make both API calls concurrently
+      const [interviewResponse, nonVerbalResponse] = await Promise.all([
+        axios.post('http://localhost:8000/api/start_interview/', formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          }
+        }),
+        axios.post('http://localhost:8000/api/start_non_verbal_interview/', formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          }
+        })
+      ]);
+
+      // Handle responses
+      if (interviewResponse.data.message === "interview completed" && interviewResponse.data.redirect_url) {
+        // Redirect to the results page
+        setStartInterview(false);
+        setEndInterview(true);
+        //window.location.href = interviewResponse.data.redirect_url; // we dont need this line because we are not redirecting to a new page
+      } else if (interviewResponse.data.error) {
+        // Handle errors (e.g., display an error message)
+        console.error("Error in start_interview:", interviewResponse.data.error);
+        alert("An error occurred in start_interview: " + interviewResponse.data.error);
+      } else {
+        // Handle other success messages if needed
+        console.log("Success in start_interview:", interviewResponse.data.message);
+        alert(interviewResponse.data.message)
       }
 
-    axios.post('http://localhost:8000/api/start_interview/', formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data'
+      if (nonVerbalResponse.data.error) {
+        console.error("Error in start_non_verbal_interview:", nonVerbalResponse.data.error);
+        alert("An error occurred in start_non_verbal_interview: " + nonVerbalResponse.data.error);
+      } else {
+        console.log("Success in start_non_verbal_interview:", nonVerbalResponse.data.message);
+        // Handle success for non-verbal if needed
       }
-    }) // Replace with your actual Django endpoint and action
-      .then(response => {
-        if (response.data.message === "interview completed" && response.data.redirect_url) {
-          // Redirect to the results page
-          setStartInterview(false);
-          setEndInterview(true);
-          //window.location.href = response.data.redirect_url; // we dont need this line because we are not redirecting to a new page
-        } else if (response.data.error) {
-          // Handle errors (e.g., display an error message)
-          console.error("Error:", response.data.error);
-          alert("An error occurred: " + response.data.error);
-        } else {
-          // Handle other success messages if needed
-          console.log("Success:", response.data.message);
-          alert(response.data.message)
-        }
-      })
-      .catch(error => {
-        console.error('Error starting interview:', error);
-      });
+    } catch (error) {
+      console.error('Error starting interview:', error);
+      alert("An error occurred while starting the interview. Please check the console for details.");
+    }
   };
-
+//////////////////////////////////////////////////////////
   const handleEndInterview = () => {
     setEarlyEnd(true);
     setEndInterview(false);
