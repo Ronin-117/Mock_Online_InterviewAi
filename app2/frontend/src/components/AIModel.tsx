@@ -27,11 +27,24 @@ const AIModel: React.FC<AIModelProps> = ({ isVideoOff, modelScale }) => {
     renderer.setSize(width, height);
     container.appendChild(renderer.domElement);
 
+    // Load background texture
+    const textureLoader = new THREE.TextureLoader();
+    textureLoader.load(
+      '/background.jpg', // Path to your background image in the public folder
+      (texture) => {
+        scene.background = texture;
+      },
+      undefined,
+      (error) => {
+        console.error('An error happened while loading the background image:', error);
+      }
+    );
+
     // Lighting
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+    const ambientLight = new THREE.AmbientLight(0xffffff, 2);//0.5
     scene.add(ambientLight);
 
-    const directionalLight = new THREE.DirectionalLight(0xffffff, 0.5);
+    const directionalLight = new THREE.DirectionalLight(0xffffff, 5);
     directionalLight.position.set(1, 1, 1);
     scene.add(directionalLight);
 
