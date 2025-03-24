@@ -3,6 +3,7 @@ from django.conf import settings  # Import settings
 import os  # Import os
 # Create your views here.
 import re
+import random
 import datetime
 import wave
 import contextlib
@@ -102,10 +103,13 @@ def start_non_verbal_interview(request):
 def start_interview(request):
     global stop_nv,non_verbal_data
     stop_nv=False
+    interviewer_types=["Challenging_interviewer","Data_Collector_interviewer","Conversational_interviewer","Investigative_interviewer","Enthusiastic_interviewer","Silent_interviewer","Stress_interviewer","Inexperienced_interviewer","Hiring_Manager_interviewer","HR_Representative_interviewer","Team_Member_interviewer"]
+    interviewer_type=random.choice(interviewer_types)
+    print(f"{interviewer_type =}")
     try:
         #init gemini code for interview
         job="Ai software engineer"
-        q_num=2
+        q_num= 3
         resume_file = request.FILES.get('resume_file', None)
         resume_text = request.data.get('resume_text', None)
         if resume_file:
@@ -123,7 +127,7 @@ def start_interview(request):
             resume_path = r"C:\Users\njne2\Desktop\resume\Neil Joseph.pdf"
             resume=get_resume(resume_path)
             print(f"from default resume:{resume}")
-        chat=get_chat(resume,job,"Challenging_interviewer",total_q_num=q_num)
+        chat=get_chat(resume,job,interviewer_type,total_q_num=q_num)
 
         #init tts code
         player=GTTSTTSPlayer(lang="en", slow=False)
@@ -156,7 +160,7 @@ def start_interview(request):
         with open(metadata_file, 'w') as f:
                 f.write(f"Interview Timestamp: {timestamp}\n")
                 f.write(f"Job: {job}\n")
-                f.write(f"Interviewer Type: Challenging_interviewer\n")
+                f.write(f"Interviewer Type: {interviewer_type}\n")
 
         #start the interview
         player.play_text("Good morning lets get in to it without any delay.")
@@ -216,6 +220,8 @@ def start_interview(request):
         with open(non_verbal_data_file, 'w') as f:
             for key, value in non_verbal_data.items():
                 f.write(f"{key}: {value}\n")
+        ##########################################
+        
         return Response({"message": "interview completed", "redirect_url": "/interview_results"}, status=200) #change the /results to your results page url
     except Exception as e:
         print(e)
