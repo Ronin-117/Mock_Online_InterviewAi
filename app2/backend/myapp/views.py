@@ -20,6 +20,18 @@ from django.core.files.storage import default_storage
 from django.core.files.base import ContentFile
 import cv2
 import mediapipe as mp # Import mediapipe here
+import json
+import pathlib
+import requests
+from google import genai
+from markdown import Markdown
+import tempfile
+import uuid
+from google.genai import types
+
+client = genai.Client(api_key='AIzaSyAU6gNgL4-8DIBy2pybFo-tluRHOQErmh4')
+MODEL_ID = "gemini-2.0-flash-exp" 
+
 
 stop_nv=False
 non_verbal_data = {
@@ -109,7 +121,7 @@ def start_interview(request):
     try:
         #init gemini code for interview
         job="Ai software engineer"
-        q_num= 3
+        q_num= 2
         resume_file = request.FILES.get('resume_file', None)
         resume_text = request.data.get('resume_text', None)
         if resume_file:
@@ -220,10 +232,113 @@ def start_interview(request):
         with open(non_verbal_data_file, 'w') as f:
             for key, value in non_verbal_data.items():
                 f.write(f"{key}: {value}\n")
-        ##########################################
+        #import all the data from the interview data folder like all the audios,gemini_response.txt,metadata.txt,non_verbal_data.txt
         
+        # Load Gemini responses
+        gemini_responses = ""
+        try:
+            with open(gemini_responses_file, 'r') as f:
+                gemini_responses = f.read()
+        except FileNotFoundError:
+            print(f"Gemini responses file not found: {gemini_responses_file}")
+
+        # Load metadata
+        metadata = {}
+        try:
+            with open(metadata_file, 'r') as f:
+                for line in f:
+                    key, value = line.strip().split(": ", 1)
+                    metadata[key] = value
+        except FileNotFoundError:
+            print(f"Metadata file not found: {metadata_file}")
+
+        # Load non-verbal data
+        non_verbal_results = {}
+        try:
+            with open(non_verbal_data_file, 'r') as f:
+                for line in f:
+                    key, value = line.strip().split(": ", 1)
+                    non_verbal_results[key] = int(value)
+        except FileNotFoundError:
+            print(f"Non-verbal data file not found: {non_verbal_data_file}")
+        
+        # Load user audio files
+        user_audio_files = []
+        for filename in os.listdir(user_audio_folder):
+            if filename.endswith(".wav"):
+                user_audio_files.append(os.path.join(user_audio_folder, filename))
+
+        #call a function on the list of audio to return the filler words present in all of them combined
+        filler_words_count=count_filler_words(user_audio_files)
+        print(f"{filler_words_count =}")
+        # Prepare the data to be sent to the frontend
+        interview_data = {
+            "gemini_responses": gemini_responses,
+            "metadata": metadata,
+            "non_verbal_results": non_verbal_results,
+            "user_audio_files": user_audio_files,
+            "interview_folder":interview_folder,
+        }
+
+        ##########################################
+
         return Response({"message": "interview completed", "redirect_url": "/interview_results"}, status=200) #change the /results to your results page url
     except Exception as e:
         print(e)
         return Response({"error": str(e)}, status=500)
 
+def count_filler_words(audio_files):
+    filler_words_count = 0
+    filler_words_list = ["um", "uh", "like", "you know", "so", "actually", "basically", "well", "i mean", "er"]  # Add more if needed
+    for audio_file in audio_files:
+        try:
+            # Create a temporary file for the audio data
+            with tempfile.NamedTemporaryFile(suffix=".wav", delete=False) as temp_audio_file:
+                temp_audio_path = temp_audio_file.name
+                # Copy the audio data to the temporary file
+                with open(audio_file, 'rb') as source_file:
+                    temp_audio_file.write(source_file.read())
+
+            # Upload the temporary file to Gemini
+            file_upload = client.files.upload(path=temp_audio_path)
+
+            # Prepare the prompt for Gemini
+            prompt = f"""
+            Listen carefully to the following audio file. 
+            Identify and count the number of filler words used.
+            The filler words to look for are: {', '.join(filler_words_list)}.
+            Provide only the total count of filler words as a number.
+            only output the number only no string or special characters
+            """
+            # Send the request to Gemini
+            response = client.models.generate_content(
+                model=MODEL_ID,
+                contents=[
+                    types.Content(
+                        role="user",
+                        parts=[
+                            types.Part.from_uri(
+                                file_uri=file_upload.uri,
+                                mime_type=file_upload.mime_type),
+                            prompt,
+                        ]),
+                ]
+            )
+            
+            # Extract the filler word count from the response
+            try:
+                count_str = response.text.strip()
+                print(f"{count_str =}")
+                count = int(count_str)
+                filler_words_count += count
+            except ValueError:
+                print(f"Could not parse filler word count from response: {response.text}")
+            
+        except Exception as e:
+            print(f"Error processing audio file {audio_file}: {e}")
+        finally:
+            # Clean up the temporary file
+            if os.path.exists(temp_audio_path):
+                os.remove(temp_audio_path)
+
+    return filler_words_count

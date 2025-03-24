@@ -1,0 +1,7 @@
+Question 1: Good morning NeilJoseph, thanks for being here today.
+Question 1: To start us off, could you share a bit about what excites you most about the field of Artificial Intelligence?
+Question 2: I understand. Sometimes it's hard to get going.
+Question 2: Maybe we can try a different angle.
+Question 2: What aspects of your project experience, perhaps the "Custom Aiassistant using RAG" or "Sustainable projectmanagement using IBMWatsonX", did you find most engaging or rewarding?
+Question 3: Okay, I understand.
+Question 3: Since this is our final question, perhaps you could tell me about a time you faced a challenge in a team setting and how you worked to overcome it.

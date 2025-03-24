@@ -1,0 +1,6 @@
+Question 1: Good morning to you too NeilJoseph! I am doing well, thank you for asking.
+Question 1: Let's start with the interview.
+Question 1: To begin, can you tell me about a time you faced a significant technical challenge while working on an AI project and how you approached solving it?
+Question 2: Okay, I understand. Let's try a different approach.
+Question 2: Could you describe your experience with using LangChain in one of your projects?
+Question 2: What specific problem did it help you solve, and what was your role in the implementation?
