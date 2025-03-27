@@ -622,17 +622,14 @@ function App() {
                 <h3 className="text-xl font-semibold mb-4">Soft Skills</h3>
                 <div className="space-y-4">
                   <div className="flex justify-between items-center">
-                    <span>Body Language</span>
+                    <span>Posture</span>
                     <span className="font-semibold">8/10</span>
                   </div>
                   <div className="flex justify-between items-center">
-                    <span>Confidence</span>
+                    <span>Eye contact</span>
                     <span className="font-semibold">9/10</span>
                   </div>
-                  <div className="flex justify-between items-center">
-                    <span>Engagement</span>
-                    <span className="font-semibold">8.5/10</span>
-                  </div>
+                
                 </div>
               </div>
             </div>
