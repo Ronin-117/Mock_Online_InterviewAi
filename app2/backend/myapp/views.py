@@ -15,6 +15,7 @@ from app2.backend.myapp.tts_test.t5 import GTTSTTSPlayer
 from app2.backend.myapp.speach_rec_test.rt_3.t1 import set_ear,Listen
 from app2.backend.myapp.str_comp_test.t5 import set_sentance_complete,is_complete
 from app2.backend.myapp.non_verbal.nv import set_non_verbal,evaluate_posture
+from app2.backend.myapp.filler_count.filler_count import count_filler_words
 import time
 from django.core.files.storage import default_storage
 from django.core.files.base import ContentFile
@@ -286,59 +287,3 @@ def start_interview(request):
     except Exception as e:
         print(e)
         return Response({"error": str(e)}, status=500)
-
-def count_filler_words(audio_files):
-    filler_words_count = 0
-    filler_words_list = ["um", "uh", "like", "you know", "so", "actually", "basically", "well", "i mean", "er"]  # Add more if needed
-    for audio_file in audio_files:
-        try:
-            # Create a temporary file for the audio data
-            with tempfile.NamedTemporaryFile(suffix=".wav", delete=False) as temp_audio_file:
-                temp_audio_path = temp_audio_file.name
-                # Copy the audio data to the temporary file
-                with open(audio_file, 'rb') as source_file:
-                    temp_audio_file.write(source_file.read())
-
-            # Upload the temporary file to Gemini
-            file_upload = client.files.upload(path=temp_audio_path)
-
-            # Prepare the prompt for Gemini
-            prompt = f"""
-            Listen carefully to the following audio file. 
-            Identify and count the number of filler words used.
-            The filler words to look for are: {', '.join(filler_words_list)}.
-            Provide only the total count of filler words as a number.
-            only output the number only no string or special characters
-            """
-            # Send the request to Gemini
-            response = client.models.generate_content(
-                model=MODEL_ID,
-                contents=[
-                    types.Content(
-                        role="user",
-                        parts=[
-                            types.Part.from_uri(
-                                file_uri=file_upload.uri,
-                                mime_type=file_upload.mime_type),
-                            prompt,
-                        ]),
-                ]
-            )
-            
-            # Extract the filler word count from the response
-            try:
-                count_str = response.text.strip()
-                print(f"{count_str =}")
-                count = int(count_str)
-                filler_words_count += count
-            except ValueError:
-                print(f"Could not parse filler word count from response: {response.text}")
-            
-        except Exception as e:
-            print(f"Error processing audio file {audio_file}: {e}")
-        finally:
-            # Clean up the temporary file
-            if os.path.exists(temp_audio_path):
-                os.remove(temp_audio_path)
-
-    return filler_words_count
