@@ -16,6 +16,7 @@ from app2.backend.myapp.speach_rec_test.rt_3.t1 import set_ear,Listen
 from app2.backend.myapp.str_comp_test.t5 import set_sentance_complete,is_complete
 from app2.backend.myapp.non_verbal.nv import set_non_verbal,evaluate_posture
 from app2.backend.myapp.filler_count.filler_count import count_filler_words
+from app2.backend.myapp.evaluation_score import evaluation_score
 import time
 from django.core.files.storage import default_storage
 from django.core.files.base import ContentFile
@@ -122,7 +123,7 @@ def start_interview(request):
     try:
         #init gemini code for interview
         job="Ai software engineer"
-        q_num= 2
+        q_num= 3
         resume_file = request.FILES.get('resume_file', None)
         resume_text = request.data.get('resume_text', None)
         if resume_file:
@@ -167,6 +168,7 @@ def start_interview(request):
         gemini_responses_file = os.path.join(interview_folder, 'gemini_responses.txt')
         metadata_file = os.path.join(interview_folder, 'metadata.txt')
         non_verbal_data_file = os.path.join(interview_folder, 'non_verbal_data.txt')
+        user_response_file = os.path.join(interview_folder, 'user_response.txt')
 
 
         # Write metadata
@@ -212,6 +214,10 @@ def start_interview(request):
                 else:
                     print("sentence not complete")
                 print(f"{transcript =}")
+            # Save user response to a file
+            if i > 0:
+                with open(user_response_file, 'a') as f:
+                    f.write(f"Answer {i+1}: {transcript}\n")
             transcript=f"[[[Response from user:{i}]]]"+transcript
             # Stream Gemini output and TTS each token as it arrives.
             tick=time.time()
@@ -220,10 +226,12 @@ def start_interview(request):
                 for token in stream_complete_sentences(transcript, chat):
                     response_text += token
                     player.play_text(token)
-                    with open(gemini_responses_file, 'a') as f:
-                        f.write(f"Question {i+1}: {token}\n")
                 if len(response_text) > 10:
                     break
+            # Save Gemini response to a file
+            #if i > 0:
+            with open(gemini_responses_file, 'a') as f:
+                    f.write(f"Gemini Response {i}: {response_text}\n")
             tock=time.time()
             print("gem streaming & tts", tock-tick)
             print(response_text)
@@ -233,15 +241,29 @@ def start_interview(request):
         with open(non_verbal_data_file, 'w') as f:
             for key, value in non_verbal_data.items():
                 f.write(f"{key}: {value}\n")
+        ##########################################################################
         #import all the data from the interview data folder like all the audios,gemini_response.txt,metadata.txt,non_verbal_data.txt
         
         # Load Gemini responses
-        gemini_responses = ""
+        gemini_responses = []
         try:
             with open(gemini_responses_file, 'r') as f:
-                gemini_responses = f.read()
+                for line in f:
+                    key, value = line.strip().split(": ", 1)
+                    gemini_responses.append(value)
         except FileNotFoundError:
             print(f"Gemini responses file not found: {gemini_responses_file}")
+
+        # Load user responses
+        user_responses = []
+        try:
+            with open(user_response_file, 'r') as f:
+                for line in f:
+                    key, value = line.strip().split(": ", 1)
+                    user_responses.append(value)
+        except FileNotFoundError:
+            print(f"User responses file not found: {user_response_file}")
+            
 
         # Load metadata
         metadata = {}
@@ -279,8 +301,16 @@ def start_interview(request):
             "non_verbal_results": non_verbal_results,
             "user_audio_files": user_audio_files,
             "interview_folder":interview_folder,
+            "user_responses": user_responses,
+            "filler_words_count": filler_words_count,
         }
-
+        print(f"{interview_data =}")
+        try:
+            score = evaluation_score(interview_data)
+            print(f"{score =}")
+        except Exception as e:
+            print(f"Error in evaluation_score: {e}")
+            return Response({"error": "Error in evaluation_score"}, status=500)
         ##########################################
 
         return Response({"message": "interview completed", "redirect_url": "/interview_results"}, status=200) #change the /results to your results page url

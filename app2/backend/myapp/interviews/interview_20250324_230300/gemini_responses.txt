@@ -1,6 +1,0 @@
-Question 1: Good morning.
-Question 1: Thanks for being here today.
-Question 1: To start, can you tell me about a time you faced a significant obstacle in a project and how you overcame it?
-Question 2: I understand that some experiences can be difficult to discuss.
-Question 2: However, could you perhaps share a situation where you had to adapt to a sudden change in project requirements and how you managed to still deliver a successful outcome? This is the last question.
-Question 3: Unfortunately,

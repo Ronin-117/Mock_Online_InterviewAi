@@ -1,6 +1,0 @@
-Question 1: Good morning.
-Question 1: Thank you for being here.
-Question 1: To begin, could you please describe a situation where you had to quickly learn a new AI concept or technology for a project?
-Question 1: What was the concept, and what specific steps did you take to become proficient enough to apply it effectively?
-Question 2: I understand you might prefer to discuss something else. However, this role requires continuous learning and adaptation.
-Question 2: Can you share a different experience where you faced a steep learning curve in AI, perhaps focusing on the resources you used or the strategies you found most helpful?

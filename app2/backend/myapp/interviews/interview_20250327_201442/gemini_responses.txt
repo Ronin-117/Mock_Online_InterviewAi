@@ -1,5 +1,0 @@
-Question 1: Good morning, P.V. Rajaraman.
-Question 1: Thank you for taking the time to interview for the AI Software Engineer position.
-Question 1: To start, could you briefly describe your understanding of the role and what excites you most about it?
-Question 2: Thank you.
-Question 2: Can you elaborate on your experience with deep learning, particularly in areas relevant to this role, such as sequence-to-sequence models or image processing?

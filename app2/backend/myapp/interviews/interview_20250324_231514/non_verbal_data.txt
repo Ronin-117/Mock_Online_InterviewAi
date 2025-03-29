@@ -1,4 +1,0 @@
-good_posture: 0
-unclear_posture: 0
-good_eye_contact: 0
-no_eye_contact: 0

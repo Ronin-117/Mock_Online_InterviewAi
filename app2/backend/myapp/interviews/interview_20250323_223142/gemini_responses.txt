@@ -1,5 +1,0 @@
-Question 1: Good morning Neil. Thanks for being here today.
-Question 1: To start, can you tell me about a time you faced a significant obstacle in a project and how you overcame it?
-Question 1: I'm interested in hearing about your problem-solving approach.
-Question 2: Alright.
-Question 2: Considering your experience with AI and ML implementation, describe a situation where your initial approach to a problem proved incorrect. What did you learn from that experience?

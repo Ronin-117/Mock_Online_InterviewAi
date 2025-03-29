@@ -603,7 +603,7 @@ function App() {
                 <h3 className="text-xl font-semibold mb-4">Language Skills</h3>
                 <div className="space-y-4">
                   <div className="flex justify-between items-center">
-                    <span>Clarity</span>
+                    <span>Filler words</span>
                     <span className="font-semibold">9/10</span>
                   </div>
                   <div className="flex justify-between items-center">
