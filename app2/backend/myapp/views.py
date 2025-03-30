@@ -1,7 +1,6 @@
 from django.shortcuts import render
 from django.conf import settings  # Import settings
 import os  # Import os
-# Create your views here.
 import re
 import random
 import datetime
@@ -118,6 +117,7 @@ def start_interview(request):
     global stop_nv,non_verbal_data
     stop_nv=False
     interviewer_types=["Challenging_interviewer","Data_Collector_interviewer","Conversational_interviewer","Investigative_interviewer","Enthusiastic_interviewer","Silent_interviewer","Stress_interviewer","Inexperienced_interviewer","Hiring_Manager_interviewer","HR_Representative_interviewer","Team_Member_interviewer"]
+    random.seed()
     interviewer_type=random.choice(interviewer_types)
     print(f"{interviewer_type =}")
     try:

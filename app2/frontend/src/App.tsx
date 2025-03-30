@@ -514,13 +514,7 @@ function App() {
           onMansClick={handleMansClick}
         />
         <ContactSection />
-        <button
-          onClick={handleDebugClick}
-          className="fixed bottom-4 right-4 p-3 rounded-full bg-gray-800 hover:bg-gray-700 text-white"
-          title="Debug: Show Results"
-        >
-          <Bug size={24} />
-        </button>
+        
       </>
     );
   }
@@ -535,13 +529,7 @@ function App() {
           onMansClick={handleMansClick}
         />
         <AboutSection />
-        <button
-          onClick={handleDebugClick}
-          className="fixed bottom-4 right-4 p-3 rounded-full bg-gray-800 hover:bg-gray-700 text-white"
-          title="Debug: Show Results"
-        >
-          <Bug size={24} />
-        </button>
+        
       </>
     );
   }
@@ -580,13 +568,7 @@ function App() {
             </div>
           </div>
         </div>
-        <button
-          onClick={handleDebugClick}
-          className="fixed bottom-4 right-4 p-3 rounded-full bg-gray-800 hover:bg-gray-700 text-white"
-          title="Debug: Show Results"
-        >
-          <Bug size={24} />
-        </button>
+        
       </>
     );
   }
@@ -668,13 +650,7 @@ function App() {
             </div>
           </div>
         </div>
-        <button
-          onClick={handleDebugClick}
-          className="fixed bottom-4 right-4 p-3 rounded-full bg-gray-800 hover:bg-gray-700 text-white"
-          title="Debug: Show Results"
-        >
-          <Bug size={24} />
-        </button>
+        
       </>
     );
   }
@@ -798,18 +774,7 @@ function App() {
             </div>
           </div>
         </div>
-        <button
-          onClick={handleDebugClick}
-          className="fixed bottom-4 right-4 p-3 rounded-full bg-gray-800 hover:bg-gray-700 text-white z-[60]"
-          title="Debug: Show Results"
-          style={{ 
-            padding: `${controlsPadding}px`,
-            bottom: `${controlsPadding}px`,
-            right: `${controlsPadding}px`
-          }}
-        >
-          <Bug size={buttonSize} />
-        </button>
+       
       </>
     );
   }
@@ -864,13 +829,7 @@ function App() {
           </div>
         </div>
       </div>
-      <button
-        onClick={handleDebugClick}
-        className="fixed bottom-4 right-4 p-3 rounded-full bg-gray-800 hover:bg-gray-700 text-white"
-        title="Debug: Show Results"
-      >
-        <Bug size={24} />
-      </button>
+      
     </>
   );
 }
