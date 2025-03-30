@@ -193,6 +193,18 @@ function App() {
     width: window.innerWidth,
     height: window.innerHeight
   });
+  
+  const [score, setScore] = useState<{
+    overall_score: number;
+    verbal_score: number;
+    non_verbal_score: number;
+    filler: number;
+    eye_contact: number;
+    posture: number;
+    vocabulary: number;
+    grammar: number;
+  } | null>(null);  
+  const [loading, setLoading] = useState(true);
 
 
   const [message, setMessage] = useState(''); // Added to store response from backend
@@ -364,7 +376,8 @@ function App() {
           }
         })
       ]);
-
+      setScore(interviewResponse.data.score); // Store score in state
+      setLoading(false);  // Set loading to false once we have data
       // Handle responses
       if (interviewResponse.data.message === "interview completed" && interviewResponse.data.redirect_url) {
         // Redirect to the results page
@@ -594,7 +607,9 @@ function App() {
             {/* Overall Rating */}
             <div className="bg-white rounded-lg shadow-lg p-8 mb-8 text-center">
               <h2 className="text-2xl font-semibold mb-4">Overall Rating</h2>
-              <div className="text-5xl font-bold text-blue-600">8.5/10</div>
+              <div className="text-5xl font-bold text-blue-600">
+                {score?.overall_score}/10  {/* Dynamic Score */}
+              </div>
             </div>
 
             <div className="grid md:grid-cols-2 gap-8 mb-12">
@@ -604,15 +619,15 @@ function App() {
                 <div className="space-y-4">
                   <div className="flex justify-between items-center">
                     <span>Filler words</span>
-                    <span className="font-semibold">9/10</span>
+                    <span className="font-semibold">{score?.filler}/10</span>
                   </div>
                   <div className="flex justify-between items-center">
                     <span>Vocabulary</span>
-                    <span className="font-semibold">8/10</span>
+                    <span className="font-semibold">{score?.vocabulary}/10</span>
                   </div>
                   <div className="flex justify-between items-center">
                     <span>Grammar</span>
-                    <span className="font-semibold">8.5/10</span>
+                    <span className="font-semibold">{score?.grammar}/10</span>
                   </div>
                 </div>
               </div>
@@ -623,25 +638,18 @@ function App() {
                 <div className="space-y-4">
                   <div className="flex justify-between items-center">
                     <span>Posture</span>
-                    <span className="font-semibold">8/10</span>
+                    <span className="font-semibold">{score?.posture}/10</span>
                   </div>
                   <div className="flex justify-between items-center">
                     <span>Eye contact</span>
-                    <span className="font-semibold">9/10</span>
+                    <span className="font-semibold">{score?.eye_contact}/10</span>
                   </div>
                 
                 </div>
               </div>
             </div>
 
-            {/* Improvements Section */}
-            <div className="bg-white rounded-lg shadow-lg p-8 mb-8">
-              <h2 className="text-2xl font-semibold mb-6">Areas for Improvement</h2>
-              <div className="space-y-4">
-                {/* This section will be populated by the API */}
-                <p className="text-gray-600">Space for API-generated improvement suggestions...</p>
-              </div>
-            </div>
+            
 
             {/* Navigation Buttons */}
             <div className="flex justify-center gap-4">

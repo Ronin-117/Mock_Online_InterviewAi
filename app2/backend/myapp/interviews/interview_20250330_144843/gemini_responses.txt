@@ -1,0 +1,3 @@
+Gemini Response 0: Uh, good morning to you too. So, NeilJoseph, right?From your resume, I see you're interested in an AI Software Engineer role.Okay. Um, let's start with something general. What... uh... what excites you most about the field of Artificial Intelligence?
+Gemini Response 1: Right, right. Okay.So, um, given your enthusiasm, could you maybe tell me about a time you faced a challenging problem, not necessarily AI-related, and how you approached solving it? Just curious about your problem-solving process, you know?
+Gemini Response 2: Okay, sure, sure. Um, this will be the last question.Looking at your resume, you have some interesting projects listed.If you could pick just one, which project are you most proud of and why?

@@ -1,0 +1,4 @@
+Gemini Response 0: Good morning Neil. Thanks for coming in today. So, uh, let's see...I'm supposed to, uh, interview you. Right.For the AI Software Engineer position. Okay.
+
+So, um, first question I guess... Can you tell me a little bit about yourself?Just, you know, whatever you think is important for me to know.
+Gemini Response 1: Oh, right, sorry. Uh, next question.So, looking at your resume, I see you've got some AI projects listed.Which one of those projects are you most proud of, and why? What makes it stand out for you?

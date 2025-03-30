@@ -313,7 +313,7 @@ def start_interview(request):
             return Response({"error": "Error in evaluation_score"}, status=500)
         ##########################################
 
-        return Response({"message": "interview completed", "redirect_url": "/interview_results"}, status=200) #change the /results to your results page url
+        return Response({"message": "interview completed", "redirect_url": "/interview_results", "score": score}, status=200) #change the /results to your results page url
     except Exception as e:
         print(e)
         return Response({"error": str(e)}, status=500)
