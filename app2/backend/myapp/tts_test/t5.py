@@ -6,6 +6,7 @@ from gtts import gTTS
 from pydub import AudioSegment
 import sounddevice as sd
 import os
+import subprocess
 
 class GTTSTTSPlayer:
     def __init__(self, lang="en", slow=False, output_dir="myapp\\Rhubarb-Lip-Sync-1.13.0-Windows", output_filename="output.wav"):
@@ -56,10 +57,49 @@ class GTTSTTSPlayer:
                 audio.export(self.output_path, format="wav")
                 print(f"Audio saved to: {self.output_path}")
 
+                #calc encoding for lip sync
+                self.run_rhubarb()
+
+
                 #play audio
                 sd.play(samples, samplerate=rate)
                 sd.wait()
                 self.next_audio = None
+
+    def run_rhubarb(self, wav_file="output.wav", output_json= "output2.json", rhubarb_dir="myapp\\Rhubarb-Lip-Sync-1.13.0-Windows"):
+
+        rhubarb_exe = os.path.join(rhubarb_dir, "rhubarb.exe")
+
+        if not os.path.exists(rhubarb_exe):
+            raise FileNotFoundError(f"rhubarb.exe not found at: {rhubarb_exe}")
+
+        full_wav_path = os.path.join(rhubarb_dir, wav_file)
+        full_output_json_path = os.path.join(rhubarb_dir, output_json)
+
+        if not os.path.exists(full_wav_path):
+            raise FileNotFoundError(f"Input WAV file not found at: {full_wav_path}")
+
+
+        command = [
+            rhubarb_exe,
+            "-o",
+            output_json,  
+            "-f",
+            "json",
+            wav_file,  
+        ]
+
+        try:
+            print(f"Running command: {' '.join(command)}")
+            subprocess.run(command, check=True, cwd=rhubarb_dir)
+            print(f"Rhubarb processing complete. Output saved to: {full_output_json_path}")
+        except subprocess.CalledProcessError as e:
+            print(f"Error running rhubarb: {e}")
+            print(f"Rhubarb output (if any):\n{e.output.decode()}")
+            raise
+        except FileNotFoundError as e:
+            print(f"Error: {e}")
+            raise
 
 if __name__=="__main__":
     player = GTTSTTSPlayer(lang="en", slow=False)
