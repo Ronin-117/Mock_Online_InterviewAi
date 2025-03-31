@@ -4,7 +4,6 @@ import axios from 'axios';
 import { Canvas } from "@react-three/fiber";
 import { Experience } from "./components/Experience";
 import { Avatar } from "./components/Avatar2"; // Import Avatar
-//import AIModel from './components/AIModel'; // Import the AIModel component
 
 function Header({ onHomeClick, onContactClick, onAboutClick, onMansClick }: {
   onHomeClick: () => void;
@@ -211,7 +210,7 @@ function App() {
 
   const [avatarProps, setAvatarProps] = useState<{ playAudio: boolean; script: string }>({
     playAudio: false,
-    script: "output", // Default script name
+    script: "lets do", // Default script name
   });
 
 
@@ -229,39 +228,44 @@ function App() {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  useEffect(() => {
-    // WebSocket connection setup
-    const ws = new WebSocket('ws://localhost:8000/ws/avatar/'); // Replace with your WebSocket URL
 
-    ws.onopen = () => {
-      console.log('WebSocket connection opened');
-    };
 
-    ws.onmessage = (event) => {
-      const data = JSON.parse(event.data);
-      console.log('Received WebSocket message:', data);
-
-      if (data.action === 'playAudio') {
-        setAvatarProps({
-          playAudio: data.value,
-          script: data.script,
-        });
+    ///////////////////////////
+    const fetchData = async () => {
+      try {
+        const response = await axios.get('http://localhost:8000/api/get_data/'); // New endpoint for data
+        console.log("response.data");
+        console.log(response.data);
+        const changeFlag = response.data.changeFlag === 'true';
+        console.log("changeFlag");
+        console.log(changeFlag);
+        if (changeFlag){
+          const playAudioValue = response.data.playAudio === 'true'; 
+          setAvatarProps({
+            playAudio: playAudioValue,
+            script: response.data.script,
+          }); // Assuming the backend sends { message: "your data" }
+          console.log("response.data.playAudio");
+          console.log(response.data.playAudio);
+        }
+        
+        
+      } catch (error) {
+        console.error('Error fetching data:', error);
+        
       }
     };
 
-    ws.onclose = () => {
-      console.log('WebSocket connection closed');
-    };
+    useEffect(() => {
+      fetchData(); // Initial fetch
+  
+      // Set up an interval to fetch data periodically
+      const intervalId = setInterval(fetchData, 5000); // Fetch data every 5 seconds (adjust as needed)
+  
+      // Clean up the interval when the component unmounts
+      return () => clearInterval(intervalId);
+    }, []);
 
-    ws.onerror = (error) => {
-      console.error('WebSocket error:', error);
-    };
-
-    // Cleanup function
-    return () => {
-      ws.close();
-    };
-  }, []);
 
 
   // Calculate scaling factors based on screen dimensions

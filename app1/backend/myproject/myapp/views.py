@@ -16,3 +16,10 @@ def speak_text(request):
         except Exception as e:
             return Response({"error": str(e)}, status=500)
     return Response({"error": "Invalid method"}, status=400)
+
+@api_view(['GET'])
+def get_data(request):
+    data = {
+        "message": "This is data from th"
+    }
+    return Response(data)

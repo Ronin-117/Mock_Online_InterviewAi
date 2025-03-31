@@ -3,5 +3,6 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('start_interview/', views.start_interview, name='start_interview'),  # Make sure to create the function
+    path('data/', views.get_data, name='get_data'),
+    path('speak/', views.speak_text, name='speak_text'), # Assuming you have this already
 ]

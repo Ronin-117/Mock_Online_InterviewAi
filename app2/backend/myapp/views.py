@@ -30,6 +30,8 @@ import tempfile
 import uuid
 from google.genai import types
 
+#from .consumers import send_audio_command_to_client
+
 client = genai.Client(api_key='AIzaSyAU6gNgL4-8DIBy2pybFo-tluRHOQErmh4')
 MODEL_ID = "gemini-2.0-flash-exp" 
 
@@ -41,6 +43,21 @@ non_verbal_data = {
     "good_eye_contact": 0,
     "no_eye_contact": 0,
 }
+playAudio="false"
+change_flag='false'
+
+
+@api_view(['GET'])
+def get_data(request):
+    global playAudio,change_flag
+    data = {
+        "message": "This is data from the Django backend! hehe",
+        "playAudio":playAudio,
+        'script': 'lets do',
+        'changeFlag':change_flag
+    }
+    print("data sented")
+    return Response(data,status=200)
 
 @api_view(['POST'])
 def start_non_verbal_interview(request):
@@ -114,7 +131,7 @@ def start_non_verbal_interview(request):
 
 @api_view(['POST']) 
 def start_interview(request):
-    global stop_nv,non_verbal_data
+    global stop_nv,non_verbal_data,playAudio, change_flag
     stop_nv=False
     interviewer_types=["Challenging_interviewer","Data_Collector_interviewer","Conversational_interviewer","Investigative_interviewer","Enthusiastic_interviewer","Silent_interviewer","Stress_interviewer","Inexperienced_interviewer","Hiring_Manager_interviewer","HR_Representative_interviewer","Team_Member_interviewer"]
     random.seed()
@@ -168,13 +185,21 @@ def start_interview(request):
         non_verbal_data_file = os.path.join(interview_folder, 'non_verbal_data.txt')
         user_response_file = os.path.join(interview_folder, 'user_response.txt')
 
-
+        
         # Write metadata
         with open(metadata_file, 'w') as f:
                 f.write(f"Interview Timestamp: {timestamp}\n")
                 f.write(f"Job: {job}\n")
                 f.write(f"Interviewer Type: {interviewer_type}\n")
 
+        ##########lip - sync test
+        #send_audio_command_to_client("playAudio", True, "lets do")
+
+        playAudio="true"
+        change_flag='true'
+        time.sleep(0.5)
+        change_flag='false'
+        
         #start the interview
         player.play_text("Good morning lets get in to it without any delay.")
         for i in range(q_num):
