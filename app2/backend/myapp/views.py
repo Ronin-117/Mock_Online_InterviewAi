@@ -43,9 +43,31 @@ non_verbal_data = {
     "good_eye_contact": 0,
     "no_eye_contact": 0,
 }
-playAudio="false"
-change_flag='false'
+playAudio="true"
+change_flag='true'
 
+def lipsync_start():
+    global playAudio,change_flag
+    # Load the JSON file
+    frontend_base_dir = frontend_base_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))), "frontend", "public", "audios")
+    json_file_path = os.path.join(frontend_base_dir, "output.json")
+    data=None
+    with open(json_file_path, 'r') as f:
+        data = json.load(f)
+        
+    # Access the duration
+    duration = data['metadata']['duration']
+    print(f"Duration from JSON: {duration}")
+    playAudio="true"
+    change_flag='true'
+    time.sleep(0.6)
+    change_flag='false'
+    time.sleep(duration)
+    playAudio="false"
+    change_flag='true'
+    time.sleep(0.6)
+    change_flag='false'
+    
 
 @api_view(['GET'])
 def get_data(request):
@@ -53,11 +75,10 @@ def get_data(request):
     data = {
         "message": "This is data from the Django backend! hehe",
         "playAudio":playAudio,
-        'script': 'lets do',
+        'script': 'output',
         'changeFlag':change_flag
     }
-    print("data sented")
-    return Response(data,status=200)
+    return Response(data)
 
 @api_view(['POST'])
 def start_non_verbal_interview(request):
@@ -163,11 +184,14 @@ def start_interview(request):
 
         #init speech recognition code
         r=set_ear()
-        print("talk something to check microphone")
+        print("talk something to check microphone, uffuufaaffaaffa")
         player.play_text("talk something to check microphone")
+        lipsync_start()
         trans=Listen(r)
         if trans:
             player.play_text("Thats great now we can start the interview")
+            time.sleep(0.5)
+            lipsync_start()
         print("microphone checked")
         results_path = os.path.join(settings.BASE_DIR,'myapp', 'str_comp_test', 'results')
         print(f"{results_path =}")
@@ -195,13 +219,11 @@ def start_interview(request):
         ##########lip - sync test
         #send_audio_command_to_client("playAudio", True, "lets do")
 
-        playAudio="true"
-        change_flag='true'
-        time.sleep(0.5)
-        change_flag='false'
+        
         
         #start the interview
-        player.play_text("Good morning lets get in to it without any delay.")
+        player.play_text("So lets get in to it without any delay.")
+        lipsync_start()
         for i in range(q_num):
             print("Start talking")
             transcript=""

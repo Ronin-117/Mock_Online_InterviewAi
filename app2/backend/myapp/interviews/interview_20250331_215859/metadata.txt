@@ -1,0 +1,3 @@
+Interview Timestamp: 20250331_215859
+Job: Ai software engineer
+Interviewer Type: Conversational_interviewer

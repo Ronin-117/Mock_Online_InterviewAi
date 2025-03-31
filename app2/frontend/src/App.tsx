@@ -210,7 +210,7 @@ function App() {
 
   const [avatarProps, setAvatarProps] = useState<{ playAudio: boolean; script: string }>({
     playAudio: false,
-    script: "lets do", // Default script name
+    script: "output", // Default script name
   });
 
 
@@ -260,7 +260,7 @@ function App() {
       fetchData(); // Initial fetch
   
       // Set up an interval to fetch data periodically
-      const intervalId = setInterval(fetchData, 5000); // Fetch data every 5 seconds (adjust as needed)
+      const intervalId = setInterval(fetchData, 500); // Fetch data every 5 seconds (adjust as needed)
   
       // Clean up the interval when the component unmounts
       return () => clearInterval(intervalId);

@@ -9,14 +9,17 @@ import os
 import subprocess
 
 class GTTSTTSPlayer:
-    def __init__(self, lang="en", slow=False, output_dir="myapp\\Rhubarb-Lip-Sync-1.13.0-Windows", output_filename="output.wav"):
+    def __init__(self, lang="en", slow=False, rhubarb_dir="myapp\\Rhubarb-Lip-Sync-1.13.0-Windows", output_filename="output.wav"):
         self.lang = lang
         self.slow = slow
         self.next_audio = None
         self.lock = threading.Lock()
         self.generator_thread = None
 
-        self.output_dir = output_dir
+        self.frontend_base_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))), "frontend", "public", "audios")
+        os.makedirs(self.frontend_base_dir, exist_ok=True)
+        self.output_dir = rhubarb_dir
+
         self.output_filename = output_filename
         self.output_path = os.path.join(self.output_dir, self.output_filename)
         # Create the output directory if it doesn't exist
@@ -54,17 +57,18 @@ class GTTSTTSPlayer:
                 samples, rate, audio = self.next_audio
 
                 # Save the audio as WAV (overwriting the same file)
-                audio.export(self.output_path, format="wav")
-                print(f"Audio saved to: {self.output_path}")
+                frontend_wav_path = os.path.join(self.frontend_base_dir, self.output_filename)
+                audio.export(frontend_wav_path, format="wav")
+                print(f"Audio saved to: {frontend_wav_path}")
 
                 #calc encoding for lip sync
-                self.run_rhubarb()
+                self.run_rhubarb(wav_file=frontend_wav_path)
 
 
-                #play audio
-                sd.play(samples, samplerate=rate)
-                sd.wait()
-                self.next_audio = None
+                # #play audio
+                # sd.play(samples, samplerate=rate)
+                # sd.wait()
+                # self.next_audio = None
 
     def run_rhubarb(self, wav_file="output.wav", output_json= "output.json", rhubarb_dir="myapp\\Rhubarb-Lip-Sync-1.13.0-Windows"):
 
@@ -73,17 +77,17 @@ class GTTSTTSPlayer:
         if not os.path.exists(rhubarb_exe):
             raise FileNotFoundError(f"rhubarb.exe not found at: {rhubarb_exe}")
 
-        full_wav_path = os.path.join(rhubarb_dir, wav_file)
-        full_output_json_path = os.path.join(rhubarb_dir, output_json)
+        frontend_json_path = os.path.join(self.frontend_base_dir, output_json)
 
-        if not os.path.exists(full_wav_path):
-            raise FileNotFoundError(f"Input WAV file not found at: {full_wav_path}")
+
+        if not os.path.exists(wav_file):
+            raise FileNotFoundError(f"Input WAV file not found at: {wav_file}")
 
 
         command = [
             rhubarb_exe,
             "-o",
-            output_json,  
+            frontend_json_path,  
             "-f",
             "json",
             wav_file,  
@@ -92,7 +96,7 @@ class GTTSTTSPlayer:
         try:
             print(f"Running command: {' '.join(command)}")
             subprocess.run(command, check=True, cwd=rhubarb_dir)
-            print(f"Rhubarb processing complete. Output saved to: {full_output_json_path}")
+            print(f"Rhubarb processing complete. Output saved to: ")
         except subprocess.CalledProcessError as e:
             print(f"Error running rhubarb: {e}")
             print(f"Rhubarb output (if any):\n{e.output.decode()}")

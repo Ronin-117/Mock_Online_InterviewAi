@@ -4,10 +4,8 @@ Command: npx gltfjsx@6.2.3 public/models/67a0838ef4bfcf9477a515cb.glb -o src/com
 */
 
 import { useAnimations, useFBX, useGLTF } from "@react-three/drei";
-import { useFrame, useLoader } from "@react-three/fiber";
-// Remove this line: import { useControls } from "leva";
+import { useFrame } from "@react-three/fiber";
 import React, { useEffect, useMemo, useRef, useState } from "react";
-
 import * as THREE from "three";
 
 const corresponding = {
@@ -27,8 +25,7 @@ interface AvatarProps {
   script: string;
 }
 
-export function Avatar(props : AvatarProps) {
-
+export function Avatar(props: AvatarProps) {
   const { playAudio, script } = props; // Receive props from App.tsx
 
   const headFollow = true; // Keep as a constant
@@ -45,8 +42,8 @@ export function Avatar(props : AvatarProps) {
     mouthCues: MouthCue[];
   }
 
-  // Use the script prop to construct the correct audio path
-  const audio = useMemo(() => new Audio(`/audios/${script}.wav`), [script]); // Changed to .wav
+  const audioRef = useRef<HTMLAudioElement>(new Audio(`/audios/${script}.wav`)); // Changed to .wav
+  const isPlayingRef = useRef<boolean>(false); // Track if audio is playing
   const [lipsync, setLipsync] = useState<LipsyncData | null>(null);
 
   // ✅ Load the JSON file properly
@@ -80,27 +77,51 @@ export function Avatar(props : AvatarProps) {
       actions["Idle"].reset().fadeIn(0.5).play();
       isIdlePlaying.current = true; // Prevent restarting Idle animation
     }
+  }, [actions]);
 
-    // Only play/pause the audio (Idle stays uninterrupted)
-    if (playAudio) {
-      audio.play();
-    } else {
+  // Audio Playback Logic
+  useEffect(() => {
+    const audio = audioRef.current;
+
+    const handleCanPlayThrough = () => {
+      if (playAudio && !isPlayingRef.current) {
+        audio.play().then(() => {
+          isPlayingRef.current = true;
+        }).catch(error => {
+          console.error("Error playing audio:", error);
+        });
+      }
+    };
+
+    const handleEnded = () => {
+      isPlayingRef.current = false;
+    };
+
+    audio.addEventListener("canplaythrough", handleCanPlayThrough);
+    audio.addEventListener("ended", handleEnded);
+
+    if (!playAudio && isPlayingRef.current) {
       audio.pause();
+      audio.currentTime = 0;
+      isPlayingRef.current = false;
     }
 
     return () => {
+      audio.removeEventListener("canplaythrough", handleCanPlayThrough);
+      audio.removeEventListener("ended", handleEnded);
       audio.pause();
       audio.currentTime = 0;
+      isPlayingRef.current = false;
     };
-  }, [playAudio, script, actions]);
+  }, [playAudio, script]);
 
   // ✅ Lip Sync using morph targets only
   useFrame(() => {
-    if (!lipsync || !audio || audio.paused || audio.ended) {
+    if (!lipsync || !audioRef.current || audioRef.current.paused || audioRef.current.ended) {
       return;
     }
 
-    const currentAudioTime = audio.currentTime;
+    const currentAudioTime = audioRef.current.currentTime;
 
     // Reset all morph targets
     Object.values(corresponding).forEach((viseme) => {
