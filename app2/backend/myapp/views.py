@@ -137,9 +137,7 @@ def start_interview(request):
             resume = resume_text
             print(f"from imported resume:{resume}")
         else:
-            # Fallback to the default resume path if no resume text is provided
-            resume_path = r"C:\Users\njne2\Desktop\resume\Neil Joseph.pdf"
-            resume=get_resume(resume_path)
+            resume="'no resume data provided'"
             print(f"from default resume:{resume}")
         chat=get_chat(resume,job,interviewer_type,total_q_num=q_num)
 
@@ -218,7 +216,7 @@ def start_interview(request):
             if i > 0:
                 with open(user_response_file, 'a') as f:
                     f.write(f"Answer {i+1}: {transcript}\n")
-            transcript=f"[[[Response from user:{i}]]]"+transcript
+            transcript=f"[[[Response from user:{i+1}]]]"+transcript #changed to i+1
             # Stream Gemini output and TTS each token as it arrives.
             tick=time.time()
             response_text = ""

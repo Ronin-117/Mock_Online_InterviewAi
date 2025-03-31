@@ -1,7 +1,9 @@
 import { Bug, Camera, Home, Info, Maximize2, Mic, MicOff, Minimize2, Users, Video, VideoOff, X } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 import axios from 'axios';
-import AIModel from './components/AIModel'; // Import the AIModel component
+import { Canvas } from "@react-three/fiber";
+import { Experience } from "./components/Experience";
+//import AIModel from './components/AIModel'; // Import the AIModel component
 
 function Header({ onHomeClick, onContactClick, onAboutClick, onMansClick }: {
   onHomeClick: () => void;
@@ -681,7 +683,11 @@ function App() {
                 {/* Mock 3D AI Model */}
                 {!isVideoOff && (
                   <div className="absolute inset-0 flex items-center justify-center">
-                    <AIModel isVideoOff={isVideoOff} modelScale={modelScale} />
+                     <Canvas shadows camera={{ position: [0, 0, 8], fov: 42 }}>
+                      <color attach="background" args={["#ececec"]} />
+                      <Experience />
+                    </Canvas>
+                    {/* <AIModel isVideoOff={isVideoOff} modelScale={modelScale} /> */}
                   </div>
                 )}
                 {isVideoOff && (

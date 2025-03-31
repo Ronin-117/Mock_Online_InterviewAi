@@ -5,14 +5,21 @@ import numpy as np
 from gtts import gTTS
 from pydub import AudioSegment
 import sounddevice as sd
+import os
 
 class GTTSTTSPlayer:
-    def __init__(self, lang="en", slow=False):
+    def __init__(self, lang="en", slow=False, output_dir="myapp\\Rhubarb-Lip-Sync-1.13.0-Windows", output_filename="output.wav"):
         self.lang = lang
         self.slow = slow
         self.next_audio = None
         self.lock = threading.Lock()
         self.generator_thread = None
+
+        self.output_dir = output_dir
+        self.output_filename = output_filename
+        self.output_path = os.path.join(self.output_dir, self.output_filename)
+        # Create the output directory if it doesn't exist
+        os.makedirs(self.output_dir, exist_ok=True)
 
     def _generate_audio(self, text):
         try:
@@ -24,15 +31,15 @@ class GTTSTTSPlayer:
             samples = np.array(audio.get_array_of_samples())
             if audio.channels > 1:
                 samples = samples.reshape((-1, audio.channels))
-            return samples, audio.frame_rate
+            return samples, audio.frame_rate, audio
         except Exception as e:
             print(f"Error generating TTS: {e}")
-            return None, None
+            return None, None, None
 
     def _async_generate(self, text):
-        samples, rate = self._generate_audio(text)
+        samples, rate, audio = self._generate_audio(text)
         with self.lock:
-            self.next_audio = (samples, rate)
+            self.next_audio = (samples, rate, audio)
 
     def play_text(self, text):
         # Start pre-generation for the next chunk asynchronously
@@ -43,7 +50,13 @@ class GTTSTTSPlayer:
         self.generator_thread.join()
         with self.lock:
             if self.next_audio is not None:
-                samples, rate = self.next_audio
+                samples, rate, audio = self.next_audio
+
+                # Save the audio as WAV (overwriting the same file)
+                audio.export(self.output_path, format="wav")
+                print(f"Audio saved to: {self.output_path}")
+
+                #play audio
                 sd.play(samples, samplerate=rate)
                 sd.wait()
                 self.next_audio = None
