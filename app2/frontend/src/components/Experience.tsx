@@ -1,6 +1,6 @@
 import { useThree } from "@react-three/fiber";
-import { Avatar } from "./Avatar";
-import { OrbitControls, Stage } from "@react-three/drei";
+//import { Avatar } from "./Avatar2";
+//import { OrbitControls, Stage } from "@react-three/drei";
 import { useGLTF } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
 import { useRef } from "react";
@@ -14,8 +14,8 @@ export const Experience = () => {
 
   return (
     <>
-      <OrbitControls />
-      <Avatar position={[0, -3, 5]} scale={2} />
+      {/* <OrbitControls /> */}
+      {/* <Avatar position={[0, -3, 5]} scale={2} /> */}
       <Environment preset="sunset" />
       <mesh>
         <planeGeometry args={[viewport.width, viewport.height]} />

@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from 'react';
 import axios from 'axios';
 import { Canvas } from "@react-three/fiber";
 import { Experience } from "./components/Experience";
+import { Avatar } from "./components/Avatar2"; // Import Avatar
 //import AIModel from './components/AIModel'; // Import the AIModel component
 
 function Header({ onHomeClick, onContactClick, onAboutClick, onMansClick }: {
@@ -208,6 +209,11 @@ function App() {
   } | null>(null);  
   const [loading, setLoading] = useState(true);
 
+  const [avatarProps, setAvatarProps] = useState<{ playAudio: boolean; script: string }>({
+    playAudio: false,
+    script: "output", // Default script name
+  });
+
 
   const [message, setMessage] = useState(''); // Added to store response from backend
 
@@ -222,6 +228,41 @@ function App() {
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
+
+  useEffect(() => {
+    // WebSocket connection setup
+    const ws = new WebSocket('ws://localhost:8000/ws/avatar/'); // Replace with your WebSocket URL
+
+    ws.onopen = () => {
+      console.log('WebSocket connection opened');
+    };
+
+    ws.onmessage = (event) => {
+      const data = JSON.parse(event.data);
+      console.log('Received WebSocket message:', data);
+
+      if (data.action === 'playAudio') {
+        setAvatarProps({
+          playAudio: data.value,
+          script: data.script,
+        });
+      }
+    };
+
+    ws.onclose = () => {
+      console.log('WebSocket connection closed');
+    };
+
+    ws.onerror = (error) => {
+      console.error('WebSocket error:', error);
+    };
+
+    // Cleanup function
+    return () => {
+      ws.close();
+    };
+  }, []);
+
 
   // Calculate scaling factors based on screen dimensions
   const getScaledSize = (baseSize: number) => {
@@ -686,6 +727,11 @@ function App() {
                      <Canvas shadows camera={{ position: [0, 0, 8], fov: 42 }}>
                       <color attach="background" args={["#ececec"]} />
                       <Experience />
+                      <Avatar
+                        position={[0, -3, 5]} scale={2}
+                        playAudio={avatarProps.playAudio}
+                        script={avatarProps.script}
+                      />
                     </Canvas>
                     {/* <AIModel isVideoOff={isVideoOff} modelScale={modelScale} /> */}
                   </div>

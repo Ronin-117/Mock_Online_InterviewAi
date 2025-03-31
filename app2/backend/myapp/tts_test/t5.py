@@ -61,12 +61,12 @@ class GTTSTTSPlayer:
                 self.run_rhubarb()
 
 
-                #play audio
-                sd.play(samples, samplerate=rate)
-                sd.wait()
-                self.next_audio = None
+                # #play audio
+                # sd.play(samples, samplerate=rate)
+                # sd.wait()
+                # self.next_audio = None
 
-    def run_rhubarb(self, wav_file="output.wav", output_json= "output2.json", rhubarb_dir="myapp\\Rhubarb-Lip-Sync-1.13.0-Windows"):
+    def run_rhubarb(self, wav_file="output.wav", output_json= "output.json", rhubarb_dir="myapp\\Rhubarb-Lip-Sync-1.13.0-Windows"):
 
         rhubarb_exe = os.path.join(rhubarb_dir, "rhubarb.exe")
 
