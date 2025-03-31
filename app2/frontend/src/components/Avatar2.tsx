@@ -5,7 +5,7 @@ Command: npx gltfjsx@6.2.3 public/models/67a0838ef4bfcf9477a515cb.glb -o src/com
 
 import { useAnimations, useFBX, useGLTF } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import * as THREE from "three";
 
 const corresponding = {
@@ -42,9 +42,11 @@ export function Avatar(props: AvatarProps) {
     mouthCues: MouthCue[];
   }
 
-  const audioRef = useRef<HTMLAudioElement>(new Audio(`/audios/${script}.wav`)); // Changed to .wav
+  const audioRef = useRef<HTMLAudioElement>(new Audio()); // Initialize with an empty Audio object
   const isPlayingRef = useRef<boolean>(false); // Track if audio is playing
   const [lipsync, setLipsync] = useState<LipsyncData | null>(null);
+  const isAudioLoadedRef = useRef<boolean>(false);
+  const scriptVersionRef = useRef<number>(0); // New ref to track script changes
 
   // ✅ Load the JSON file properly
   useEffect(() => {
@@ -82,8 +84,14 @@ export function Avatar(props: AvatarProps) {
   // Audio Playback Logic
   useEffect(() => {
     const audio = audioRef.current;
-
+    isAudioLoadedRef.current = false; // Reset the flag when the script changes
+    scriptVersionRef.current++; // Increment the version number
+    const cacheBustingUrl = `/audios/${script}.wav?v=${scriptVersionRef.current}`; // Add version to URL
+    audio.src = cacheBustingUrl; // Update the audio source
+    audio.load(); // Load the new audio source
+    
     const handleCanPlayThrough = () => {
+      isAudioLoadedRef.current = true;
       if (playAudio && !isPlayingRef.current) {
         audio.play().then(() => {
           isPlayingRef.current = true;
@@ -112,6 +120,7 @@ export function Avatar(props: AvatarProps) {
       audio.pause();
       audio.currentTime = 0;
       isPlayingRef.current = false;
+      isAudioLoadedRef.current = false;
     };
   }, [playAudio, script]);
 

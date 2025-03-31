@@ -43,8 +43,8 @@ non_verbal_data = {
     "good_eye_contact": 0,
     "no_eye_contact": 0,
 }
-playAudio="true"
-change_flag='true'
+playAudio="false"
+change_flag='false'
 
 def lipsync_start():
     global playAudio,change_flag
@@ -214,12 +214,7 @@ def start_interview(request):
         with open(metadata_file, 'w') as f:
                 f.write(f"Interview Timestamp: {timestamp}\n")
                 f.write(f"Job: {job}\n")
-                f.write(f"Interviewer Type: {interviewer_type}\n")
-
-        ##########lip - sync test
-        #send_audio_command_to_client("playAudio", True, "lets do")
-
-        
+                f.write(f"Interviewer Type: {interviewer_type}\n")        
         
         #start the interview
         player.play_text("So lets get in to it without any delay.")
@@ -271,6 +266,7 @@ def start_interview(request):
                 for token in stream_complete_sentences(transcript, chat):
                     response_text += token
                     player.play_text(token)
+                    lipsync_start()
                 if len(response_text) > 10:
                     break
             # Save Gemini response to a file
