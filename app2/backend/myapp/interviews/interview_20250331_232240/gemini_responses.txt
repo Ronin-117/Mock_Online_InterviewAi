@@ -1,0 +1,3 @@
+Gemini Response 0: Hello, thank you for coming in today.To start, can you describe a time you had to quickly learn a new skill or technology to complete a project?
+Gemini Response 1: Thank you.Finally, and this is the last question, can you describe your preferred method for collaborating with other engineers on a project?
+Gemini Response 2: Thank you for your time.

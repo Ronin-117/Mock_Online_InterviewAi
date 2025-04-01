@@ -732,7 +732,7 @@ function App() {
                       <color attach="background" args={["#ececec"]} />
                       <Experience />
                       <Avatar
-                        position={[0, -3, 5]} scale={2}
+                        position={[0, -4, 5]} scale={2.8}
                         playAudio={avatarProps.playAudio}
                         script={avatarProps.script}
                       />
@@ -747,27 +747,7 @@ function App() {
                 )}
 
                 {/* Picture-in-Picture User Camera */}
-                <div 
-                  className="absolute bottom-4 right-4 bg-black rounded-lg overflow-hidden shadow-lg transition-all duration-300"
-                  style={{ 
-                    width: `${pipWidth}px`,
-                    height: `${pipHeight}px`
-                  }}
-                >
-                  {isVideoOff ? (
-                    <div className="w-full h-full flex items-center justify-center bg-gray-800">
-                      <Camera className={`w-${buttonSize/3} h-${buttonSize/3} text-gray-600`} />
-                    </div>
-                  ) : (
-                    <video
-                      ref={pipVideoRef}
-                      className="w-full h-full object-cover"
-                      autoPlay
-                      playsInline
-                      muted={isMuted}
-                    />
-                  )}
-                </div>
+                
 
                 {/* Fullscreen Toggle Button */}
                 <button
