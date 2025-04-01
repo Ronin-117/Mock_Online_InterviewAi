@@ -1,2 +1,0 @@
-Gemini Response 0: Welcome to the interview.To begin, could you please share a bit about yourself and what interests you about the AI software engineer role?
-Gemini Response 1: I understand.Since this is our final question, could you describe a situation where you faced a significant challenge, and how you approached solving it?

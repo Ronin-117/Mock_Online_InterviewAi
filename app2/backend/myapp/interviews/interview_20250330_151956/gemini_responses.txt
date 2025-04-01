@@ -1,3 +1,0 @@
-Gemini Response 0: Good morning!Thanks for taking the time to interview for the AI Software Engineer role.To start, could you tell me a little about what excites you most about the field of Artificial Intelligence?
-Gemini Response 1: I understand.Thank you for your time. This will be the last question.Considering your experience and the role of an AI Software Engineer, what do you believe is the biggest challenge facing AI development today, and how would you approach overcoming it?
-Gemini Response 2: Thank you for your response! We appreciate your insights and will be in touch regarding the next steps.
