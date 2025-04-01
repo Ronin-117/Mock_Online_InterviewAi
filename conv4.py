@@ -15,6 +15,7 @@ chat=get_chat(resume,job,"Challenging_interviewer")
 #init tts code
 player=GTTSTTSPlayer(lang="en", slow=False)
 
+
 #init speech recognition code
 response=set_ear()
 print("talk something to check microphone")
