@@ -1,8 +1,9 @@
 #basic gemini chatbot
 from google import genai
 from google.genai import types
+from config import GEMINI_API_KEY
 
-client = genai.Client(api_key='AIzaSyAU6gNgL4-8DIBy2pybFo-tluRHOQErmh4')
+client = genai.Client(api_key=GEMINI_API_KEY)
 
 MODEL_ID = "gemini-2.0-flash-exp" # @param ["gemini-1.5-flash-8b","gemini-1.5-flash-002","gemini-1.5-pro-002","gemini-2.0-flash-exp"] {"allow-input":true}
 

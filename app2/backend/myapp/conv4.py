@@ -7,7 +7,7 @@ from str_comp_test.t5 import set_sentance_complete,is_complete
 import time
 
 #init gemini code for interview
-resume_path = r"C:\Users\njne2\Desktop\resume\Neil Joseph.pdf"
+resume_path = r"YOUR_PATH"
 job="Ai software engineer"
 resume=get_resume(resume_path)
 chat=get_chat(resume,job,"Challenging_interviewer")

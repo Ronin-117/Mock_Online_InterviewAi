@@ -30,11 +30,6 @@ import tempfile
 import uuid
 from google.genai import types
 
-#from .consumers import send_audio_command_to_client
-
-client = genai.Client(api_key='AIzaSyAU6gNgL4-8DIBy2pybFo-tluRHOQErmh4')
-MODEL_ID = "gemini-2.0-flash-exp" 
-
 
 stop_nv=False
 non_verbal_data = {

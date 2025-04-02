@@ -5,6 +5,7 @@ from google.genai import types
 from pydantic import BaseModel
 from typing import Literal
 import json
+from config import GEMINI_API_KEY
 
 class Language_data(BaseModel):
     Vocabulary: Literal["high","mid","low"]
@@ -43,7 +44,7 @@ def posture_score(non_verbal_results):
     else:
         return 3
 
-client = genai.Client(api_key='AIzaSyAU6gNgL4-8DIBy2pybFo-tluRHOQErmh4')
+client = genai.Client(api_key=GEMINI_API_KEY)
 MODEL_ID = "gemini-2.0-flash-exp" 
 
 def evaluation_score(interview_data):

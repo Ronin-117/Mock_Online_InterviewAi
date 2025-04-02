@@ -2,9 +2,10 @@ import os
 import tempfile
 from google import genai
 from google.genai import types
+from config import GEMINI_API_KEY
 
 
-client = genai.Client(api_key='AIzaSyAU6gNgL4-8DIBy2pybFo-tluRHOQErmh4')
+client = genai.Client(api_key=GEMINI_API_KEY)
 MODEL_ID = "gemini-2.0-flash-exp" 
 
 
@@ -43,8 +44,3 @@ def count_filler_words(audio_files):
             print(f"Error processing audio file {audio_file}: {e}")
 
     return filler_words_count
-
-if __name__ == "__main__":
-    audio_files = [r"C:\Users\njne2\Desktop\Cuda_PWR\CREATIVE\Mini_project\app2\backend\myapp\interviews\interview_20250324_230653\user_audio\user_response_0.wav", r"C:\Users\njne2\Desktop\Cuda_PWR\CREATIVE\Mini_project\app2\backend\myapp\interviews\interview_20250324_230653\user_audio\user_response_1.wav",r"C:\Users\njne2\Desktop\Cuda_PWR\CREATIVE\Mini_project\app2\backend\myapp\interviews\interview_20250324_230653\user_audio\user_response_2.wav"]
-    filler_words_count = count_filler_words(audio_files)
-    print(f"Total filler words count: {filler_words_count}")
