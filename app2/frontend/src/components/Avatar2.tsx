@@ -63,7 +63,7 @@ export function Avatar(props: AvatarProps) {
 
   // ✅ Load the model and Idle animation
   const { nodes, materials } = useGLTF("/models/67a0838ef4bfcf9477a515cb.glb");
-  const { animations: idleAnimation } = useFBX("/animations/Idle.fbx");
+  const { animations: idleAnimation } = useFBX("/animations/Idle.fbx"); 
 
   idleAnimation[0].name = "Idle";
 
