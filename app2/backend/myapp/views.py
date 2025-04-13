@@ -167,7 +167,7 @@ def start_interview(request):
             print(f"from uploaded resume:{resume}")
         elif resume_text:
             # Use the provided resume text
-            resume = resume_text
+            resume = "NO RESUME PROVIDED"
             print(f"from imported resume:{resume}")
         else:
             resume="'no resume data provided'"
