@@ -1,7 +1,7 @@
+# Oratis : AI guide to ace interview
+
 ![Oratis Demo Animation](https://raw.githubusercontent.com/Ronin-117/Mock_Online_InterviewAi/master/assets/oratis_short.gif)
 
-
-Oratis : AI guide to ace interview
 
 Project Repository: https://github.com/Ronin-117/Mock_Online_InterviewAi
 
@@ -42,30 +42,30 @@ It simulates realistic interview scenarios using an animated 3D interviewer, off
 
 1.  **Clone the repository:**
     ```bash
-    # git clone https://github.com/Ronin-117/Mock_Online_InterviewAi.git
-    # cd Mock_Online_InterviewAi
+     git clone https://github.com/Ronin-117/Mock_Online_InterviewAi.git
+     cd Mock_Online_InterviewAi
     ```
 2.  **Set up Backend (Django):**
     *   Navigate to the backend directory (likely `app2/backend/` or where `manage.py` resides).
     *   Create and activate a Python virtual environment:
         ```bash
-        # python -m venv venv
-        # source venv/bin/activate  # On Windows use `venv\Scripts\activate`
+         python -m venv venv
+         source venv/bin/activate  # On Windows use `venv\Scripts\activate`
         ```
     *   Install Python dependencies (ensure `requirements.txt` is present in the root or backend folder):
         ```bash
-        # pip install -r requirements.txt
+         pip install -r requirements.txt
         ```
     *   **Configure API Keys:** See the Configuration section below.
     *   Apply database migrations (if any):
         ```bash
-        # python manage.py migrate
+         python manage.py migrate
         ```
 3.  **Set up Frontend (React):**
     *   Navigate to the frontend directory (e.g., `frontend/`).
     *   Install Node.js dependencies:
         ```bash
-        # npm install
+         npm install
         ```
     *   Ensure the frontend is configured to communicate with the Django backend API (likely running on `http://localhost:8000`). This might involve setting proxy settings in `package.json` or using environment variables.
 
@@ -74,8 +74,8 @@ It simulates realistic interview scenarios using an animated 3D interviewer, off
 *   **Google Gemini API Key:** This project requires a Google Gemini API Key.
     *   Add your API key to `config.py` like this:
         ```python
-        # # config.py
-        # GEMINI_API_KEY = "YOUR_ACTUAL_GEMINI_API_KEY_HERE"
+        # config.py
+         GEMINI_API_KEY = "YOUR_ACTUAL_GEMINI_API_KEY_HERE"
         ```
     *   **CRITICAL:** Add `config.py` to your `.gitignore` file immediately to prevent accidentally committing your secret API key.
         ```
@@ -97,7 +97,7 @@ You need to run the backend and frontend servers concurrently in separate termin
     *   Ensure your Python virtual environment is activated.
     *   Run the Django development server:
         ```bash
-        # python manage.py runserver
+         python manage.py runserver
         ```
     *   By default, this usually runs on `http://localhost:8000`.
 
@@ -106,7 +106,7 @@ You need to run the backend and frontend servers concurrently in separate termin
     *   Navigate to the frontend directory (e.g., `frontend/`).
     *   Run the React development server:
         ```bash
-        # npm run dev
+         npm run dev
         ```
     *   This usually runs on `http://localhost:3000` and should open automatically in your browser.
 
