@@ -178,4 +178,4 @@ optimizer.pt
 app2/backend/myapp/config.py
 app2/backend/myapp/gem_test/config.py
 app2/backend/myapp/filler_count/config.py
-config.py
+config_s.py
