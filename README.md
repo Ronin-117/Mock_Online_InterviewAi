@@ -31,7 +31,7 @@ It simulates realistic interview scenarios using an animated 3D interviewer, off
     *   **Non-Verbal Analysis:** OpenCV, MediaPipe
 *   **Configuration Management:** Python (`config.py` for API keys)
 
-# Project Structure Analysis (Inferred)
+# Project Structure Analysis
 
 *   The project uses a standard Django backend structure, likely located within a subdirectory like `app2/backend/`.
 *   `manage.py` is the entry point for Django administrative tasks.
@@ -47,10 +47,8 @@ It simulates realistic interview scenarios using an animated 3D interviewer, off
     ```
 2.  **Set up Backend (Django):**
     *   Navigate to the backend directory (likely `app2/backend/` or where `manage.py` resides).
-    *   Create and activate a Python virtual environment:
         ```bash
-         python -m venv venv
-         source venv/bin/activate  # On Windows use `venv\Scripts\activate`
+         cd app2/backend
         ```
     *   Install Python dependencies (ensure `requirements.txt` is present in the root or backend folder):
         ```bash
@@ -62,7 +60,10 @@ It simulates realistic interview scenarios using an animated 3D interviewer, off
          python manage.py migrate
         ```
 3.  **Set up Frontend (React):**
-    *   Navigate to the frontend directory (e.g., `frontend/`).
+    *   Navigate to the frontend directory .
+        ```bash
+         cd app2/frontend
+        ```
     *   Install Node.js dependencies:
         ```bash
          npm install
@@ -86,15 +87,16 @@ It simulates realistic interview scenarios using an animated 3D interviewer, off
         *.pyc
         # Add other necessary ignores (e.g., node_modules, .env files)
         ```
-*   Other configurations (database, specific model paths) might be located in Django's `settings.py` (`app2/backend/backend/settings.py`).
 
 # Running the Application
 
 You need to run the backend and frontend servers concurrently in separate terminals.
 
 1.  **Start the Backend Server:**
-    *   Navigate to the directory containing `manage.py` (e.g., `app2/backend/`).
-    *   Ensure your Python virtual environment is activated.
+    *   Navigate to the directory containing `manage.py`.
+        ```bash
+         cd app2/backend
+        ```
     *   Run the Django development server:
         ```bash
          python manage.py runserver
@@ -103,7 +105,10 @@ You need to run the backend and frontend servers concurrently in separate termin
 
 2.  **Start the Frontend Development Server:**
     *   Open a **new terminal**.
-    *   Navigate to the frontend directory (e.g., `frontend/`).
+    *   Navigate to the frontend directory.
+        ```bash
+         cd app2/frontend
+        ```
     *   Run the React development server:
         ```bash
          npm run dev
